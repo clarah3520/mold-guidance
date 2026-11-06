@@ -1,0 +1,993 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mold Guidance Research</title>
+<meta name="description" content="A comparison of public and professional mold-cleaning guidance from Canada and the United States.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a research notebook. Sticky top bar with tabs; each tab is one body of findings. */
+:root{
+  --bg:#eef1ee; --surface:#f8faf7; --line:#d3dad3; --ink:#18201d; --muted:#5b6762;
+  --accent:#1e6f62; --accent-soft:#d6e8e3; --ochre:#9a6416; --bad:#a83a32; --ok:#2f7d3a;
+  --ok-soft:#dcefdc; --warn-soft:#f6e8cf; --bad-soft:#f6dcd8;
+  --display:"Familjen Grotesk","Helvetica Neue",Arial,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#131917; --surface:#1a2220; --line:#2d3834; --ink:#e4ebe7; --muted:#9aa8a2;
+  --accent:#6cc3b1; --accent-soft:#1f3832; --ochre:#e0a955; --bad:#ec8a80; --ok:#7fca86;
+  --ok-soft:#1f3322; --warn-soft:#3a2d17; --bad-soft:#3d211e; color-scheme:dark}}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--body);padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.top{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;padding-block:14px 6px}
+h1{font:600 22px/1.2 var(--display);margin:0;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:13px}
+nav{display:flex;gap:4px;overflow-x:auto;padding-bottom:8px}
+nav a{font:500 14px var(--display);color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:999px;white-space:nowrap}
+nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+main{padding-block:24px 48px}
+section[data-view]{display:grid;gap:20px}
+h2{font:600 19px/1.25 var(--display);margin:0;text-wrap:balance}
+h3{font:600 15px/1.3 var(--display);margin:8px 0 0}
+p{margin:0;max-width:68ch}
+.muted{color:var(--muted)}
+.label{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;min-width:0}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface)}
+tr.group td{font:600 12px var(--display);color:var(--accent);background:var(--accent-soft)}
+a{color:var(--accent)}
+.prose{display:grid;gap:14px}
+.prose table{min-width:720px}
+.prose ul{margin:0;padding-left:20px;max-width:80ch}
+.prose li{margin:4px 0}
+.prose .tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+select,input{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 9px}
+input[type=search]{min-width:0;flex:1 1 200px}
+.chip{font:500 12px var(--mono);border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--surface);color:var(--muted);cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.matrix td:first-child{font-weight:700;min-width:170px}
+.pill{display:inline-block;font:500 11.5px var(--mono);padding:2px 8px;border-radius:999px;white-space:nowrap}
+.p-no{background:var(--ok-soft);color:var(--ok)} .p-part{background:var(--warn-soft);color:var(--ochre)} .p-yes{background:var(--bad-soft);color:var(--bad)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.bar{transition:width .7s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-reduced-motion: reduce){.bar{transition:none}}
+.srcgroup{display:grid;gap:6px}
+.srcgroup ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.srcgroup li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}
+.mono{font-family:var(--mono);font-size:12.5px;color:var(--muted);white-space:nowrap}
+footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="top"><h1>Mold Guidance Research</h1><span class="sub">How public and professional sources tell people to clean up mold</span></div>
+    <nav aria-label="Sections">
+      <a href="#materials">By material</a><a href="#compare">Compare sources</a><a href="#evaluation">Evaluation</a><a href="#professional">Professional practice</a><a href="#indigenous">Indigenous communities</a><a href="#figures">Figures</a><a href="#sources">Sources</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section data-view="materials">
+    <div style="display:grid;gap:6px"><h2>What to do, material by material</h2><p class="muted">What each source says to do with each material. Pick a material or a source to narrow it, or search for a word like bleach, HEPA or caulk.</p></div>
+    <div class="controls" id="mat-chips"></div>
+    <div class="controls"><label class="label" for="g-src">Source</label><select id="g-src"><option value="">All</option></select><label class="label" for="g-q">Search</label><input id="g-q" type="search" placeholder="e.g. bleach, HEPA, caulk"></div>
+    <div class="panel scroll" style="padding:0"><table id="a1"><thead><tr><th>Material</th><th>Source</th><th>Action</th><th>Cleaning agent / method</th><th>PPE / notes</th><th>Where in source</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section data-view="compare" hidden>
+    <div style="display:grid;gap:6px"><h2>Twelve institutional sources</h2><p class="muted">Who publishes each guide, who it is for, and what it is based on.</p></div>
+    <div class="prose"><div class="tbl"><table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Publisher &amp; type</th>
+<th>Setting / scope</th>
+<th>Audience</th>
+<th>Yr</th>
+<th>Basis / development</th>
+<th>Formats &amp; languages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>U.S. EPA ᵃ</td>
+<td>US federal agency</td>
+<td>Home; renters</td>
+<td>Public</td>
+<td>2026</td>
+<td>Practical; from EPA 2001 schools/commercial guide</td>
+<td>Web + PDF; EN, ES, ~11 languages</td>
+</tr>
+<tr>
+<td>U.S. CDC</td>
+<td>US federal agency</td>
+<td>Home; post-disaster</td>
+<td>Public</td>
+<td>2024</td>
+<td>Public-health guidance</td>
+<td>Web + PDF, infographics; EN, ES, ~15 languages</td>
+</tr>
+<tr>
+<td>Health Canada</td>
+<td>Canadian federal dept.</td>
+<td>Home; owners/tenants</td>
+<td>Public</td>
+<td>2023</td>
+<td>Aligns with AIHA, NYC DOHMH, NIOSH</td>
+<td>Web + 16-pp PDF; EN, FR</td>
+</tr>
+<tr>
+<td>CCOHS</td>
+<td>Canadian federal agency</td>
+<td>Workplace; general</td>
+<td>Workers, public</td>
+<td>2021</td>
+<td>Fact sheet; cites CDC, Health Canada</td>
+<td>Web + PDF; EN, FR</td>
+</tr>
+<tr>
+<td>U.S. OSHA</td>
+<td>US federal agency</td>
+<td>Workplace; commercial and schools</td>
+<td>Employers/public</td>
+<td>2003, rev. 2013 (links to EPA guidance, updated 2026)</td>
+<td>Advisory (no mold standard); from EPA/NYC</td>
+<td>Web; EN, ES</td>
+</tr>
+<tr>
+<td>City of Toronto</td>
+<td>Municipal government</td>
+<td>City-owned/leased facilities</td>
+<td>Staff/managers</td>
+<td>2007; rev. 2017</td>
+<td>Corporate policy; EACO 2015 &amp; Health Canada</td>
+<td>Web policy; EN (+ translate)</td>
+</tr>
+<tr>
+<td>Ottawa Public Health</td>
+<td>Municipal public health</td>
+<td>Home; tenants/landlords</td>
+<td>Public</td>
+<td>2025</td>
+<td>Mirrors Health Canada; tenant recourse</td>
+<td>Web; EN, FR + Google Translate + Somali/Arabic/Chinese</td>
+</tr>
+<tr>
+<td>HealthLink BC</td>
+<td>Provincial health</td>
+<td>Home</td>
+<td>Public</td>
+<td>2024</td>
+<td>Consumer file (File 65b)</td>
+<td>Web + PDF; EN + 8 languages</td>
+</tr>
+<tr>
+<td>AIHA</td>
+<td>US professional association</td>
+<td>Professional/occupational</td>
+<td>Practitioners</td>
+<td>2020</td>
+<td>Expert; sampling protocols; ties to IICRC</td>
+<td>Web hub; “Green Book” (paid); EN, ES fact sheets</td>
+</tr>
+<tr>
+<td>NIH (DOHS)</td>
+<td>US federal institution</td>
+<td>Institutional/healthcare</td>
+<td>In-house/contractors</td>
+<td>2023</td>
+<td>Built on IICRC S500/S520</td>
+<td>Internal PDF; EN</td>
+</tr>
+<tr>
+<td>OHSCO / PSHSA</td>
+<td>Ontario H&amp;S agency</td>
+<td>Workplace</td>
+<td>Employers/workers</td>
+<td>c. 2010s</td>
+<td>Repackages the EPA 2001 chart</td>
+<td>PDF; EN</td>
+</tr>
+<tr>
+<td>NCCEH</td>
+<td>Canadian collaborating centre</td>
+<td>Home (for PHIs/EHOs)</td>
+<td>PH inspectors</td>
+<td>2010 (rev. 2014)</td>
+<td>Evidence review; cites AIHA, IICRC, NYC</td>
+<td>PDF; EN (FR sister centre)</td>
+</tr>
+</tbody>
+</table></div></div>
+    <div style="display:grid;gap:6px"><h2>Eight sources side by side</h2><p class="muted">Assessment, protection, cleaning and prevention.</p></div>
+    <div class="panel scroll" style="padding:0"><table class="matrix" id="t2"></table></div>
+    <div style="display:grid;gap:6px"><h2>Consistency check</h2></div>
+    <div class="prose"><div class="tbl"><table>
+<thead>
+<tr>
+<th>Comparison question</th>
+<th>EPA</th>
+<th>CDC</th>
+<th>Health Canada</th>
+<th>CCOHS</th>
+<th>Ottawa PH</th>
+<th>HealthLink BC</th>
+<th>OSHA</th>
+<th>NCCEH</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bleach recommended for routine cleanup?</td>
+<td>No (pro-judgment exception)</td>
+<td>Yes — bleach or detergent</td>
+<td>No — 'do not use bleach'</td>
+<td>No</td>
+<td>No — 'not required'</td>
+<td>No (uses detergent)</td>
+<td>No (detergent)</td>
+<td>No routine; only pro-judgment / contaminated water</td>
+</tr>
+<tr>
+<td>Primary cleaning agent</td>
+<td>Detergent + water</td>
+<td>Bleach (≤1 cup/gal) or dish detergent</td>
+<td>Unscented soap / baking soda</td>
+<td>Soap or detergent</td>
+<td>Unscented soap / baking soda</td>
+<td>Detergent + water</td>
+<td>Detergent solution</td>
+<td>Soap/detergent + water</td>
+</tr>
+<tr>
+<td>Discard porous materials with growth?</td>
+<td>Yes</td>
+<td>Implied</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>(occupational)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>DIY vs professional threshold</td>
+<td>~10 sq ft</td>
+<td>By water-damage extent</td>
+<td>≤1 m² / 1-3 m² / &gt;3 m²</td>
+<td>&lt;1 m² / 1-3 m² / &gt;3 m²</td>
+<td>Small (per HC)</td>
+<td>&lt;1 m²</td>
+<td>Level I-IV: &lt;10/10-30/30-100/&gt;100 sq ft</td>
+<td>≤1 / 1-4 / 4-10 / &gt;10 m²</td>
+</tr>
+<tr>
+<td>Respiratory protection</td>
+<td>N95</td>
+<td>N95 min; half/full for big jobs</td>
+<td>N95 (P100/N100 if needed)</td>
+<td>N95; P100/HEPA; PAPR (large)</td>
+<td>N95</td>
+<td>KN-95 or better</td>
+<td>N95 (per 1910.134)</td>
+<td>N95 (by tier)</td>
+</tr>
+<tr>
+<td>Fix moisture source emphasized?</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Remove mold vs 'kill' with biocide</td>
+<td>Remove (dead still allergenic)</td>
+<td>Clean (bleach optional)</td>
+<td>Physical removal; killing/painting fails</td>
+<td>Removal; biocide not advised</td>
+<td>Removal</td>
+<td>Removal</td>
+<td>Removal</td>
+<td>Physical removal essential</td>
+</tr>
+<tr>
+<td>Air/testing for routine cases?</td>
+<td>Usually unnecessary</td>
+<td>Not needed</td>
+<td>Not recommended</td>
+<td>Not recommended</td>
+<td>Not recommended</td>
+<td>Not mentioned</td>
+<td>n/a</td>
+<td>Visual over sampling</td>
+</tr>
+<tr>
+<td>Guidance for renters / tenants?</td>
+<td>Yes</td>
+<td>Yes (disaster guide)</td>
+<td>Yes</td>
+<td>No (workplace)</td>
+<td>Yes — detailed (LTB, 3-1-1)</td>
+<td>No</td>
+<td>No (workplace)</td>
+<td>Refers to rental guidance</td>
+</tr>
+<tr>
+<td>Vulnerable populations flagged?</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes (asthma)</td>
+<td>Workers</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Non-English / plain-language versions</td>
+<td>ES + ~11 langs</td>
+<td>ES + ~15 langs</td>
+<td>FR</td>
+<td>FR</td>
+<td>FR + Google/Somali/Arabic/Chinese</td>
+<td>8 languages</td>
+<td>ES</td>
+<td>EN (FR sister)</td>
+</tr>
+<tr>
+<td>Professional tied to a standard?</td>
+<td>EPA guide / ACGIH</td>
+<td>No</td>
+<td>IICRC, OSHA; ISO 17025 labs</td>
+<td>Refers to HC/NYC</td>
+<td>Refers to HC</td>
+<td>No</td>
+<td>General Duty Clause / 1910.134</td>
+<td>IICRC S520; AIHA</td>
+</tr>
+</tbody>
+</table></div></div>
+  </section>
+
+  <section data-view="evaluation" hidden>
+    <div style="display:grid;gap:6px"><h2>Evaluation matrix</h2><p class="muted">Communication, populations named, accessibility, evidence and limitations for each source.</p></div>
+    <div class="prose"><div class="tbl"><table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Communication notes</th>
+<th>Populations named</th>
+<th>Accessibility notes (formats/languages)</th>
+<th>Evidence notes</th>
+<th>Flaws/limitations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>U.S. EPA</td>
+<td>Plain, homeowner-friendly; tabbed web layout + PDF</td>
+<td>Sensitive/allergic people; asthma; renters section</td>
+<td>Web + PDF; EN, ESP and ~11 languages</td>
+<td>Practical guidance; notes EPA sets no numeric limits</td>
+<td>Single coarse threshold (~10 sq ft), no medium tier; sparse material-by-material detail; doesn't tell high-risk people to avoid cleanup; refers to 'phone books' to find specialists (dated).</td>
+</tr>
+<tr>
+<td>U.S. CDC</td>
+<td>Concise 'key points' style; disaster-focused</td>
+<td>Allergies, immune-suppressed, lung disease, asthma/COPD (should not clean)</td>
+<td>Web + PDFs, infographics; EN, ES + ~15 languages</td>
+<td>Practical; the outlier permitting bleach</td>
+<td>Permits bleach, cutting against the physical-removal consensus and the evidence that dead mold still harms; almost no material-specific method; gives no DIY-vs-professional size threshold; skewed to post-disaster.</td>
+</tr>
+<tr>
+<td>Health Canada</td>
+<td>Clear, step-by-step; strong material detail</td>
+<td>Infants, children, seniors, pregnant, asthma/respiratory; tenants</td>
+<td>Web + 16-pp PDF; EN + FR</td>
+<td>Aligns internationally; cites AIHA, NYC DOHMH, NIOSH</td>
+<td>Only English/French; 16-page PDF is a lot for quick reference; the 'medium' area logic (patch count plus combined area) is convoluted; defers to 'hire a professional' for anything larger.</td>
+</tr>
+<tr>
+<td>CCOHS</td>
+<td>Structured by area size; occupational tone</td>
+<td>Immuno-suppressed, post-surgery</td>
+<td>Web + PDF; EN + FR</td>
+<td>Cites CDC/Health Canada; clear PPE tiers</td>
+<td>Occupational lens with no tenant/renter guidance; thin on vulnerable groups (omits infants, children, pregnant, elderly); fact sheet last revised 2021; one reference link is mislabelled.</td>
+</tr>
+<tr>
+<td>U.S. OSHA</td>
+<td>Technical, regulatory framing</td>
+<td>Workers; schedule off-hours for occupants</td>
+<td>Web; EN + ESP</td>
+<td>No mold standard; General Duty Clause + 1910.134</td>
+<td>Oldest source (2003), never updated; advisory only (OSHA has no mold standard); workplace-only, nothing for homes or vulnerable occupants; its Level size bands differ from EPA's.</td>
+</tr>
+<tr>
+<td>City of Toronto</td>
+<td>Formal policy; roles &amp; responsibilities</td>
+<td>Immunocompromised, children, elderly (occupant removal)</td>
+<td>Web policy; EN (+ translate widget)</td>
+<td>Based on EACO 2015 &amp; Health Canada</td>
+<td>Internal admin policy, not a public how-to; actual methods buried in appendices; English only plus a translate widget; leans on older docs (EACO 2015, HC 2004, MOL alert 2000); scope limited to City facilities.</td>
+</tr>
+<tr>
+<td>Ottawa Public Health</td>
+<td>Q&amp;A format; mirrors Health Canada</td>
+<td>Pregnant, infants, children, elderly, asthma/allergy; tenants &amp; landlords</td>
+<td>Web; EN, FR + Google Translate + Somali/Arabic/Chinese hubs</td>
+<td>Practical; references AIHA/ACGIH for sampling</td>
+<td>Largely derivative of Health Canada; multilingual access relies on machine (Google) translation rather than full translated documents; states it will not inspect or test; primarily EN/FR.</td>
+</tr>
+<tr>
+<td>HealthLink BC</td>
+<td>Very concise consumer file</td>
+<td>Asthma/allergy (humidifier caution)</td>
+<td>Web + PDF in 9 languages</td>
+<td>Practical; brief on methods</td>
+<td>Least methodological depth (a few bullets); thin on vulnerable groups; single &lt;1 m² threshold with no medium tier; bundles mold with other contaminants; says 'KN-95' where others say N95.</td>
+</tr>
+<tr>
+<td>AIHA</td>
+<td>Professional/technical hub</td>
+<td>Notes individual sensitivities vary</td>
+<td>Web hub; Green Book paid; EN + ES fact sheets</td>
+<td>Science-based; sampling protocols; points to IICRC</td>
+<td>The authoritative 'Green Book' is paywalled; it's a portal, not a consumer how-to; barely addresses vulnerable groups; curates other agencies' (some dated) documents; minimal size-threshold guidance.</td>
+</tr>
+<tr>
+<td>NIH (DOHS) SOP</td>
+<td>Detailed institutional SOP</td>
+<td>Immune-compromised (AIDS), diabetes, chronic respiratory</td>
+<td>Internal PDF; EN</td>
+<td>Built on IICRC S500/S520; drying logs</td>
+<td>Institutional/technical, not usable by the public; English only; built on the older IICRC S520-2015; healthcare-specific rules (e.g., no active drying in patient areas) don't generalize to homes; cites a non-authoritative commercial site.</td>
+</tr>
+<tr>
+<td>OHSCO / PSHSA</td>
+<td>Workplace guideline w/ EPA chart</td>
+<td>Weakened immune systems should not remediate</td>
+<td>PDF; EN</td>
+<td>Notes bleach no better than detergent+water</td>
+<td>Undated and older, with many dead legacy links; occupational, not for homeowners; English only; largely a repackage of the EPA 2001 chart.</td>
+</tr>
+<tr>
+<td>NCCEH</td>
+<td>Evidence-review style; for PHIs/EHOs</td>
+<td>Infants &lt;12 mo, pregnant, post-surgery, immune-suppressed, chronic respiratory</td>
+<td>PDF; EN (FR sister centre)</td>
+<td>Literature review; flags weak evidence base</td>
+<td>Dated 2010; written for public-health inspectors despite a homeowner focus; explicitly excludes flooding, hidden mold and grow-ops; candidly rests on a weak evidence base; English (French via a sister centre).</td>
+</tr>
+</tbody>
+</table></div></div>
+    <div style="display:grid;gap:6px"><h2>Communication and accessibility</h2></div>
+    <div class="prose"><div class="tbl"><table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Effective communication? (language &amp; readability)</th>
+<th>Multiple situations / circumstances covered?</th>
+<th>Accessible &amp; doable by everyone? (equity: ability, cost, tools, literacy, language)</th>
+<th>Additional resources / referrals for those who can't</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>U.S. EPA</td>
+<td>Plain, conversational, homeowner-friendly - short sentences, photos, a bathroom tip. Minor flaw: technical asides (respirator fit-testing, ACGIH) and two overlapping pages (basic steps vs brief guide).</td>
+<td>Covers owners and renters, HVAC, hidden mold, sewage/contaminated water and small-vs-large jobs. Gap: nothing for people who can't do the work themselves - no disability, low-income or 'no-one to help' scenario.</td>
+<td>Assumes an able-bodied person can buy PPE (quotes N95 at $12-25), a humidity meter and a dehumidifier, and do the work. No accommodation for disability, cost or physical limits. Strong language range (ES + ~11).</td>
+<td>Points to the schools/commercial guide, ACGIH and to vetting contractors; tells renters to contact local/state/federal health or housing authorities. Flaw: 'phone books' is dated; no financial-assistance pointers.</td>
+</tr>
+<tr>
+<td>U.S. CDC</td>
+<td>Very readable - 'key points', bold reminders, a clear 'who shouldn't clean' list. Flaw: so brief there's little method detail, and the bleach nuance (when NOT to) sits on a separate linked PDF.</td>
+<td>Strong on crises - flooding, community-wide events, staying in a moldy home for weeks. Gap: little on everyday small mold, no owner/renter distinction, nothing on cost or disability.</td>
+<td>Tells high-risk people not to clean or even stay - but never says who cleans for someone with no alternative. Assumes PPE access. Good language range (ES + ~15).</td>
+<td>Links a resources page and 'reducing exposure' / 'when to use bleach' PDFs. Flaw: thin on who-to-call for people who can't clean; no professional-vetting or financial referral.</td>
+</tr>
+<tr>
+<td>Health Canada</td>
+<td>Clear, well-structured six-step format. Flaw: 16 pages is long for quick use; terms like 'efflorescence' and 'non-viable air test' go unexplained; dense in places.</td>
+<td>Broadest situational coverage - owners, landlords, tenants, flooding, cannabis cultivation, climate change, overcrowding, hidden mold, room-by-room. Gap: still assumes the reader (or someone) is able and funded to act.</td>
+<td>Says susceptible people should stay away from cleanup but assumes another able person is available, and that funds exist for a professional on large jobs. PPE cost unaddressed. Only EN/FR.</td>
+<td>Strong: a full 'hiring a professional' section (how to vet, IICRC/OSHA training, ISO-17025 labs), a landlord/tenant pointer to provincial rules, and a contact phone/email.</td>
+</tr>
+<tr>
+<td>CCOHS</td>
+<td>Organized by area size, but an occupational register with unexplained jargon (APR, PAPR, P100, HEPA). Higher reading level than the consumer guides.</td>
+<td>Workplace scenarios, HVAC, sanitary vs unsanitary water, three size tiers. Gap: no home, renter or vulnerable-household situations.</td>
+<td>Written for workplaces where the employer supplies PPE and training; for an individual it assumes the same equipment and know-how. EN/FR only.</td>
+<td>Points to Health Canada, NYC and the Canadian Construction Association, plus a Safety InfoLine phone. Referrals are workplace-oriented, not for households who can't cope.</td>
+</tr>
+<tr>
+<td>U.S. OSHA</td>
+<td>Bureaucratic and technical - cites CFR standards and Level I-IV categories; not written for a lay reader.</td>
+<td>Workplace only, organized by contamination size. Gap: no homes, renters, vulnerable occupants, cost or disability.</td>
+<td>Assumes employer-provided, fit-tested respirators and trained personnel - not something an individual can access or do. EN + ES.</td>
+<td>Refers to EPA/NYC guides and industrial-hygiene consultants. Little for individuals who can't do the work; advisory only.</td>
+</tr>
+<tr>
+<td>City of Toronto</td>
+<td>A policy/legal register (roles, responsibilities, authorities), not instructional prose. Hard for a layperson to act on; methods sit in appendices.</td>
+<td>Covers City-owned/leased and multi-tenant sites, sensitive settings (long-term care, childcare), leased-vs-owned and procurement. Gap: only City property - nothing for the general public.</td>
+<td>Accessible within its scope (the City supplies training/PPE to staff) but irrelevant to a resident. EN only plus a translate widget.</td>
+<td>Internal referrals only - qualified persons, consultants, OHS staff. No public-facing help or financial pathways.</td>
+</tr>
+<tr>
+<td>Ottawa Public Health</td>
+<td>Friendly Q&amp;A, plain language - effective for the public. Flaw: the page is one long set of dense tables, and content largely repeats Health Canada.</td>
+<td>Owners, tenants and landlords (with recourse), a flooding link and hidden-mold advice. Gap: assumes the reader is physically able to do the cleanup.</td>
+<td>Assumes DIY ability and PPE purchase. Wide language reach, but many languages are via Google machine translation rather than full translated documents.</td>
+<td>Best referral pathways for those who can't fix it themselves: notify landlord, then 3-1-1 / Bylaw Property Standards and the Landlord &amp; Tenant Board (with phone), plus HC/CMHC/CDC links and numbers.</td>
+</tr>
+<tr>
+<td>HealthLink BC</td>
+<td>The plainest and shortest - very easy to read. Flaw: brevity omits the 'why' and most method detail; says 'KN-95' where others say N95.</td>
+<td>General home guidance and an asthma/humidifier caution, folded into a broader biological-contaminants file. Gap: no owner/renter distinction, no flooding depth, no equity angle.</td>
+<td>Assumes DIY ability and PPE. Strongest language access of all (9 languages) but no accommodation for disability or cost.</td>
+<td>Good referrals: Health Canada, BC Lung, CMHC (incl. a First-Nations occupants guide), the Lung Association, and an 8-1-1 nurse line offering translation in ~130 languages.</td>
+</tr>
+<tr>
+<td>AIHA</td>
+<td>Professional/technical - 'IEQ', 'OEHS', risk-communication framing; written for practitioners, not the public.</td>
+<td>Frames large-building and disaster-response contexts. Gap: not situational for households at all.</td>
+<td>The authoritative 'Green Book' is paywalled and the guidance presumes a qualified consultant - not publicly doable. EN + some ES fact sheets.</td>
+<td>Offers a consultants directory and links to CDC/FEMA/EPA/OSHA/CCOHS. These are professional referrals, not help for a resident who can't act.</td>
+</tr>
+<tr>
+<td>NIH (DOHS) SOP</td>
+<td>Formal SOP, acronym-heavy (DOHS, ORF, AHU, MVOC) and legalistic - not for a general reader.</td>
+<td>Institutional and healthcare-specific - patient-care rules, contaminated water, off-hours scheduling. Gap: none of it maps to a household.</td>
+<td>Requires DOHS staff/contractors and specialized gear (moisture meters, FLIR, HEPA, air-injection) - not individually doable; internal document, EN only.</td>
+<td>Internal contacts only (DOHS, Occupational Medical Service, a Call Desk). No public or financial referrals.</td>
+</tr>
+<tr>
+<td>OHSCO / PSHSA</td>
+<td>Workplace tone with scientific names (Stachybotrys, Aspergillus); moderate reading level, largely a walkthrough of the EPA chart.</td>
+<td>Workplace scenarios and size tiers, including sewage. Gap: narrow - no homes, renters or vulnerable households.</td>
+<td>Assumes an employer/worker context with PPE and training. EN only; many linked resources are dead legacy URLs.</td>
+<td>Lists agency publications (EPA, Health Canada, NYC, IRSST, AIHA, Manitoba) - but several links are broken and it targets employers, not individuals.</td>
+</tr>
+<tr>
+<td>NCCEH</td>
+<td>Academic evidence-review register with inline citations - written for public-health inspectors, not the public.</td>
+<td>Home-focused in intent but explicitly EXCLUDES flooding, hidden mold and grow-ops - it skips the hardest common situations; notes bigger buildings need more.</td>
+<td>Presumes professional involvement beyond small areas; no equity, cost or disability angle. EN (FR via a sister centre).</td>
+<td>Includes a 'recommended resources for homeowners' list (CMHC, Health Canada, NIEHS, CDC, EPA). Flaw: a 2010 document, so several links are dated.</td>
+</tr>
+</tbody>
+</table></div></div>
+  </section>
+
+  <section data-view="professional" hidden>
+    <div style="display:grid;gap:6px"><h2>Professional mold remediation</h2><p class="muted">Industry practice and recommendations: the standards remediators follow, what happens on a job, add-on treatments, what companies tell homeowners, and regulation in Ontario.</p></div>
+    <div class="prose" id="prof"><h3>Standards remediators follow</h3>
+<table>
+<thead>
+<tr>
+<th>Document</th>
+<th>Who writes it / audience</th>
+<th>How jobs are sized</th>
+<th>Biocides and coatings</th>
+<th>Verification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://blog.ansi.org/ansi/ansi-iicrc-s520-2024-professional-mold-remediation/">ANSI/IICRC S520-2024</a> (4th ed., replaced 2015)</td>
+<td>Industry consensus, IICRC; remediators, insurers, courts treat it as "standard of care"</td>
+<td>By condition: 1-normal, 2-settled spores, 3-actual growth; not square footage</td>
+<td>Strongly discourages spraying without first removing mold; ozone and antimicrobial devices not primary tools</td>
+<td>Remediator does post-remediation evaluation (PRE); independent IEP does verification (PRV)</td>
+</tr>
+<tr>
+<td><a href="https://www.epa.gov/node/255257">US EPA, schools and commercial buildings</a></td>
+<td>Federal agency; building managers and contractors</td>
+<td>By area: &lt; 10 ft², 10-100 ft², &gt; 100 ft²</td>
+<td>Not recommended as routine</td>
+<td>Visual: no mold, no damage, no odour; sampling optional</td>
+</tr>
+<tr>
+<td><a href="https://www.canada.ca/en/health-canada/services/publications/healthy-living/addressing-moisture-mould-your-home.html">Health Canada (2023)</a></td>
+<td>Federal; public, landlords, tenants</td>
+<td>Small &lt; 1 m², medium 1-3 m², large &gt; 3 m²</td>
+<td>"Do not use bleach"; good firms prioritize removal over sealing or chemical treatment</td>
+<td>Recommends a separate company for post-remediation clearance on structural jobs</td>
+</tr>
+<tr>
+<td>CCA 82 Mould Guidelines (2004; reviewed 2018)</td>
+<td>Canadian Construction Association; contractors</td>
+<td>Level 1 &lt; 1 m² (10 ft²), Level 2 1-10 m², Level 3 &gt; 10 m²; mold in HVAC moves a job up a level. Calls the thresholds "arbitrary" and says to weigh density as well as area</td>
+<td>Detergent wipe is the default; a Health Canada DIN-registered disinfectant is optional, only after cleaning, and required only after sewage floods. Goal is "not to disinfect or sterilize" but to restore normal conditions</td>
+<td>Level 2+: health and safety professional provides QA. Level 3: inspection plus clearance air samples vs a reference area before containment comes down. Air sampling "not typically required" for assessment. Includes contractor-selection criteria</td>
+</tr>
+<tr>
+<td>EACO Mould Abatement Guidelines (2015)</td>
+<td>Environmental Abatement Council of Ontario; Ontario abatement contractors</td>
+<td>Same three levels as CCA (10 ft² / 100 ft²), counting estimated hidden mold; thresholds "subject to professional judgment". Excludes small "lifestyle mold" (bathroom grout, cold window frames) as ordinary house cleaning. Adapted into U of T's Level I-IV program</td>
+<td>Same as CCA: detergent default, DIN disinfectant optional after cleaning, required for sewage; names household bleach as a disinfectant needing a different respirator rather than banning it</td>
+<td>Same as CCA: H&amp;S professional QA from Level 2; Level 3 clearance by inspection, air samples vs reference area and surface samples showing minimal or no growth</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>S520 replaced square-footage rules with Conditions because a small visible patch can hide large growth in wall cavities (Aramsco summary). Public guidance (EPA, Health Canada) and the Canadian industry guidelines (CCA 82, EACO 2015) still use area, though both industry documents call their thresholds a guide subject to professional judgment, so homeowners and contractors may be working from different decision rules.</li>
+<li>The canonical standard is paywalled: S520 must be bought from IICRC, so homeowners cannot read the document a contractor claims to follow (<a href="https://amrttraining.com/iicrc-s520">AMRT Training summary</a>).</li>
+</ul>
+<h3>Tools and equipment on a job</h3>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Tools</th>
+<th>What they are for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Assessment</td>
+<td>Moisture meters, thermal cameras, visual and odour inspection; air or surface samples by an IEP</td>
+<td>Find wet and hidden growth; classify Condition. Health Canada and NCCEH advise against routine air testing for homeowners</td>
+</tr>
+<tr>
+<td>Containment</td>
+<td>6-mil polyethylene sheeting, zip-pole walls, sealed vents and HVAC, decontamination chamber on large jobs</td>
+<td>Keep spores and dust inside the work area; S520 scales containment from source to limited to full</td>
+</tr>
+<tr>
+<td>Negative air</td>
+<td>HEPA negative-air machines ("air scrubbers") exhausting out of the zone; manometer</td>
+<td>Pull air into the zone; machines sized by CFM = volume × target air changes per hour ÷ 60 (<a href="https://amrttraining.com/iicrc-s520">AMRT</a>)</td>
+</tr>
+<tr>
+<td>Worker protection</td>
+<td>N95 up to full-face respirators or PAPRs with P100 filters; disposable coveralls; fit testing</td>
+<td>Exposure during demolition is the highest of any phase; post-Katrina work recorded farm-level bioaerosols (<a href="https://pmc.ncbi.nlm.nih.gov/articles/pmid/17185280">Chew et al. 2006</a>)</td>
+</tr>
+<tr>
+<td>Removal</td>
+<td>Demolition tools; double 6-mil bags for disposal; misting to suppress dust</td>
+<td>Porous materials with growth (drywall, insulation, carpet, ceiling tiles) are cut out and bagged</td>
+</tr>
+<tr>
+<td>Cleaning what stays</td>
+<td>HEPA vacuums, damp wiping with detergent, wire brushing, sanding; media blasting (dry ice, soda) on framing</td>
+<td>Physically take growth off wood, concrete and hard surfaces; HEPA-vacuum before and after</td>
+</tr>
+<tr>
+<td>Drying</td>
+<td>Commercial dehumidifiers, air movers, moisture readings</td>
+<td>Materials must be dry before rebuilding or mold returns</td>
+</tr>
+<tr>
+<td>Verification</td>
+<td>Visual inspection, moisture readings, white-glove dust test, indoor vs outdoor air samples</td>
+<td>No visible mold, dust or odour; materials dry (<a href="https://ncceh.ca/sites/default/files/Mould_Remediation_Evidence_Review_March_2014.pdf">NCCEH 2014</a>)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Company equipment lists add items the standards treat as optional or secondary. One Mississauga firm lists HEPA vacuums, air scrubbers, dehumidifiers, air movers and zip walls alongside "industrial sprayers" and "cold ULV foggers" (<a href="https://gtamoldremoval.com/about.html">GTA Mold Removal</a>).</li>
+<li>The one before-and-after study of professional home jobs found large drops in airborne spores (<a href="https://www.annallergy.org/article/S1081-1206%2810%2960716-8/fulltext">Barnes et al. 2007</a>).<ul>
+<li>Across 17 Kansas City homes remediated in 2000-02 (92 samples before, 99 after), mean counts fell from 131,687 to 1,291 spores/m³ and medians from 9,461 to 664; afterwards, indoor counts averaged 18% of outdoor. Aspergillus/Penicillium fell in 15 of 17 homes, and Stachybotrys, found in 53% of homes beforehand, also dropped.</li>
+<li>Methods were not standardized but generally followed EPA guidance: fix the moisture source, remove and replace contaminated drywall, carpet and ceiling tiles, wash surfaces with soap and water, disinfect with a biocide such as bleach, and HEPA-vacuum carpet and upholstery, extending to ductwork if needed. Jobs typically took under two weeks and cost the homeowner a few thousand dollars.</li>
+<li>A few homes drive the average. Mean reductions came mostly from a handful of very contaminated homes; homes with low starting counts changed little.</li>
+<li>In at least 2 homes, Aspergillus/Penicillium and Stachybotrys rose after the first remediation, which the authors attribute to opening drywall and cavities; those homes got extra HEPA cleaning, and the study counted only the first clearance sample.</li>
+<li>There was no control group or comparison of methods, no health outcomes, and sampling conditions before and after were "similar but not identical" across seasons.</li>
+<li>The authors note that no quality standards exist for the services remediation firms sell, and that many firms guarantee indoor spores below outdoor levels.</li>
+</ul>
+</li>
+</ul>
+<h3>Chemicals and add-on treatments</h3>
+<table>
+<thead>
+<tr>
+<th>Treatment</th>
+<th>What standards and agencies say</th>
+<th>How it shows up in industry practice</th>
+<th>Lab evidence (see lit review)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Antimicrobial sprays and wipes</td>
+<td>S520-2024 strongly discourages spraying before physical removal and cleaning (<a href="https://www.candrmagazine.com/the-ansi-iicrc-s520-2024-a-critical-guide-for-professional-mold-remediation/">C&amp;R</a>); they are pesticides, so label directions are legally binding; some US states require a pesticide applicator licence (<a href="https://www.puroclean.com/chesapeake-va-puroclean-south-chesapeake/wp-json/wp/v2/blog/19459">PuroClean</a>)</td>
+<td>Routine "treatment" step in many company sequences; Toronto firms advertise Health Canada-registered (DIN) "non-toxic" products and "never use bleach" (<a href="https://gtamoldremoval.com/moldremoval.html">GTA Mold Removal</a>)</td>
+<td>Kill on contact; do not remove allergens or most toxins (Peitzsch 2012)</td>
+</tr>
+<tr>
+<td>Fogging (ULV, "whole-home")</td>
+<td>Not a substitute for removal; dead spores remain allergenic (<a href="https://www.floridaiaq.com/learn/mold-remediation-standards">Florida IAQ summary</a>)</td>
+<td>Sold as add-on or main service; one US firm fogged a whole house with a product claimed to protect "for up to six months" (<a href="https://memphismoldinspector.com/we-broke-the-mold-literally-and-figuratively">Memphis Mold Inspector</a>); homeowner forums report crews fogging instead of scrubbing (<a href="https://forum.nachi.org/t/mold-remediation/79144">InterNACHI forum</a>)</td>
+<td>No controlled study of residential fogging found</td>
+</tr>
+<tr>
+<td>Encapsulants and mold-resistant coatings</td>
+<td>Not recommended by any guideline as a substitute for removal (<a href="https://ncceh.ca/sites/default/files/Mould_Remediation_Evidence_Review_March_2014.pdf">NCCEH 2014</a>); EPA says do not paint over mold</td>
+<td>Applied after cleaning on framing and sheathing, often as a final step</td>
+<td>Coatings delayed regrowth on wallboard in lab tests (Price &amp; Ahearn 1999; Krause 2006)</td>
+</tr>
+<tr>
+<td>Ozone generators</td>
+<td>EPA: at concentrations that meet public-health standards, ozone does not effectively remove mold or other biological pollutants (<a href="https://www.epa.gov/node/61667">EPA</a>); S520-2024 says ozone and other devices should not be primary tools</td>
+<td>Marketed as "shock treatments" and odour removal</td>
+<td>Survivors at 40-100× safe exposure (Korzun 2008)</td>
+</tr>
+<tr>
+<td>Hydroxyl generators, air purifiers</td>
+<td>Filtration is a supplement to source control, not remediation (EPA air cleaner guidance)</td>
+<td>Added as "extra protection" in some company sequences</td>
+<td>None found for remediation outcomes</td>
+</tr>
+<tr>
+<td>Dry ice and soda blasting</td>
+<td>Accepted abrasive cleaning on framing where the surface tolerates it</td>
+<td>Marketed for attics and crawl spaces with claims of 99-100% spore removal (<a href="https://www.coldjet.com/dry-ice-blasting/industries/restoration-remediation/">Cold Jet</a>)</td>
+<td>Vendor case studies only; no peer-reviewed comparison found</td>
+</tr>
+<tr>
+<td>Bleach</td>
+<td>Health Canada: do not use; EPA: not routine</td>
+<td>Many firms advertise not using it; some company blogs still recommend bleach, vinegar or peroxide for small patches (<a href="https://svm-server.com/post/How-to-Get-Rid-of-Mould-on-Walls-in-Your-Home-or-Business/">ServiceMaster</a>)</td>
+<td>Best-supported agent on hard surfaces (Martyny 2005; Reynolds 2012)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The 2024 S520 revision itself signals that over-reliance on sprays was common: its biocide section was expanded specifically to discourage spraying without removal (<a href="https://blog.ansi.org/ansi/ansi-iicrc-s520-2024-professional-mold-remediation/">ANSI</a>).</li>
+</ul>
+<h3>What companies tell homeowners</h3>
+<p>Toronto-area company sites mostly describe the standard sequence correctly (containment, HEPA, removal), but surround it with claims that blur what regulators actually endorse, especially on testing, credentials and "toxic black mold".</p>
+<table>
+<thead>
+<tr>
+<th>What companies say</th>
+<th>Example</th>
+<th>What standards and agencies say</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Free inspection, then the same firm quotes and does the work</td>
+<td>"Free visible mold inspections" with remediation and clearance certificates from one firm (<a href="https://crs.dev4.xi-digital.com/mold-removal-services">Canada's Restoration Services</a>)</td>
+<td>S520 separates the remediator from an independent IEP; Health Canada suggests a separate firm for clearance on structural jobs; Texas law bars one firm doing both on a project (<a href="https://www.lrl.texas.gov/scanned/srcBillAnalyses/78-0/HB329RPT.PDF">Texas HB 329 analysis</a>)</td>
+</tr>
+<tr>
+<td>"Conflict-free" because samples go to a third-party lab</td>
+<td>Same firm markets itself as conflict-free via outside lab testing</td>
+<td>An independent lab analyses samples; it does not independently decide scope or sign off the job</td>
+</tr>
+<tr>
+<td>Air quality testing on every job</td>
+<td>Six-step process starting with "air quality testing" (<a href="https://www.houzz.com/pro/canadarestorationservices">Houzz profile</a>)</td>
+<td>Health Canada does not recommend air testing in most situations; visual inspection is the main tool</td>
+</tr>
+<tr>
+<td>"Black mold" may be toxic, so get a professional assessment</td>
+<td>Company FAQ on whether black mold is toxic</td>
+<td>Health Canada: clean up visible mold regardless of species; risk depends on extent, not colour</td>
+</tr>
+<tr>
+<td>"Licensed" and "Health Canada approved"</td>
+<td>Mississauga firm cites licensing by the Canadian Authority for Decontamination Specialists and a Health Canada DIN (<a href="https://gtamoldremoval.com/">GTA Mold Removal</a>)</td>
+<td>Ontario has no government mold licence; a DIN registers a disinfectant product, not a company's methods</td>
+</tr>
+<tr>
+<td>"Non-toxic, eco-friendly, we never use bleach" + fogging</td>
+<td>Same firm lists cold ULV foggers and "non-toxic" formulas</td>
+<td>Consistent with Health Canada's no-bleach advice, but S520 treats fogging as secondary to removal</td>
+</tr>
+<tr>
+<td>Moisture problem is fixed as part of the job</td>
+<td>National franchise says it takes "proactive steps" on moisture (<a href="https://puroclean.ca/etobicoke-restoration-services/services/mould-remediation">PuroClean Etobicoke</a>)</td>
+<td>S520 assigns correcting the moisture source to the owner, not the remediator (<a href="https://blog.ansi.org/ansi/ansi-iicrc-s520-2024-professional-mold-remediation/">ANSI</a>)</td>
+</tr>
+<tr>
+<td>Multi-year guarantees against regrowth</td>
+<td>Fog treatment sold with a 5-year guarantee for $500-700 (<a href="https://www.nachi.org/forum/f21/mold-mitigation-heard-fog-spray-called-mdf500-825/">InterNACHI forum</a>); "transferable certificates" for buyers</td>
+<td>Regrowth depends on moisture; no product study supports long-term guarantees</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>There is also evidence of good practice. Homeowner reviews describe inspectors telling them a small problem did not need professional removal and explaining how to clean it themselves, matching Health Canada's small-area guidance (<a href="https://homestars.com/companies/2785009-canada-restoration-services/reviews/147942">HomeStars review</a>).</li>
+</ul>
+<h3>Regulation, licensing and certification</h3>
+<p>In Ontario anyone can sell mold remediation; quality signals come from private certifications and Health Canada's hiring checklist, not a licence.</p>
+<table>
+<thead>
+<tr>
+<th>Jurisdiction</th>
+<th>Rule</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ontario/Canada</td>
+<td>No provincial or federal mold remediation licence found</td>
+<td>A Toronto mycologist's site notes the business is unregulated, so anyone can advertise as a mold professional (<a href="https://mouldfacts.ca/mold/mold-removal-in-toronto.html">Mould Facts, 2015</a>); worker safety falls under general occupational health law</td>
+</tr>
+</tbody>
+</table>
+<p>Private credentials seen on Ontario company sites: IICRC (Applied Microbial Remediation Technician, AMRT), ACAC, NAMRI, PMII and the Canadian Authority for Decontamination Specialists. These are industry bodies; none is a government licence.</p>
+<p>Health Canada's hiring criteria (<a href="https://www.canada.ca/en/health-canada/services/publications/healthy-living/addressing-moisture-mould-your-home.html">2023 guide</a>):</p>
+<ul>
+<li>IICRC certification, OSHA-certified training or equivalent experience</li>
+<li>Prioritizes removing damaged materials over sealing or chemically treating them</li>
+<li>Liability insurance that specifically covers mold removal</li>
+<li>Written inspection and clean-up procedures, costs, warranties and follow-up</li>
+<li>Labs accredited to ISO/IEC 17025</li>
+<li>On structural jobs, suggests a separate company for post-remediation clearance</li>
+</ul>
+<p>The ANSI summary of S520-2024 adds that most mold remediation firms are not correctly insured and do not know it (<a href="https://blog.ansi.org/ansi/ansi-iicrc-s520-2024-professional-mold-remediation/">ANSI</a>), which makes the insurance item more than a formality.</p>
+<p>Institutions often impose stricter rules than homes face. The University of Toronto's Mold Control Program classifies work as Levels I-IVb, bans disposable respirators and requires misting materials before removal (<a href="https://ehs.utoronto.ca/wp-content/uploads/2014/06/Mould-Control-Program-Procedures-4-FINAL-20170821.pdf">U of T EHS</a>).</p></div>
+  </section>
+
+  <section data-view="indigenous" hidden>
+    <div style="display:grid;gap:6px"><h2>Guidance for Indigenous communities</h2><p class="muted">Household mold guides written by, with or for First Nations and US tribal communities.</p></div>
+    <div class="prose"><div class="tbl"><table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Indigenous-led?</th>
+<th>Bleach?</th>
+<th>DIY threshold</th>
+<th>First contact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.sac-isc.gc.ca/eng/1582657493726">ISC</a> (federal, for First Nations)</td>
+<td>No</td>
+<td>Not mentioned</td>
+<td>&lt; 1 m² (garbage bag folded in half)</td>
+<td>Housing manager or Environmental Health Officer</td>
+</tr>
+<tr>
+<td><a href="https://cssspnql.com/en/breathe-easy-spotting-and-preventing-mould-at-home/">CSSSPNQL</a> (First Nations-led)</td>
+<td>Yes</td>
+<td>No (not necessary)</td>
+<td>&lt; 1 m²; call for help after floods</td>
+<td>Health centre → FNIHB inspection → housing dept.</td>
+</tr>
+<tr>
+<td><a href="https://apnql.com/en/?p=8395">APNQL</a> (First Nations-led)</td>
+<td>Yes</td>
+<td>Not mentioned</td>
+<td>Small: fewer than 3 patches, each &lt; 1 m²; extensive: larger than a sheet of plywood</td>
+<td>First Nation housing officials or band office</td>
+</tr>
+<tr>
+<td><a href="https://www.hud.gov/sites/documents/moldprevention.pdf">HUD ONAP</a> residents guide (US federal)</td>
+<td>No</td>
+<td>No</td>
+<td>≤ 10 sq ft</td>
+<td>Tribal housing / maintenance dept.</td>
+</tr>
+<tr>
+<td><a href="https://www.ihs.gov/sites/albuquerque/themes/responsive2017/display_objects/documents/oehe/DEHSPositionOnMold.pdf">IHS</a> position paper (US federal)</td>
+<td>No</td>
+<td>Not addressed</td>
+<td>&lt; 10 sq ft</td>
+<td>Environmental Health Officer</td>
+</tr>
+</tbody>
+</table></div></div>
+  </section>
+
+  <section data-view="figures" hidden>
+    <div class="panel" style="display:grid;gap:12px">
+      <div style="display:grid;gap:4px"><h2>When to call a professional</h2><p class="muted">Each dot is a size cut-off a source uses, converted to m² (10 ft² ≈ 0.93 m²). Log scale. The CDC gives no size and is left out.</p></div>
+      <div class="scroll"><svg id="fig-thr" role="img" aria-label="Size thresholds by source"></svg></div>
+    </div>
+    <div class="panel" style="display:grid;gap:12px">
+      <div style="display:grid;gap:4px"><h2>Clean or discard, by material</h2><p class="muted">How many sources say to clean, to discard, or to call a professional or decide case by case.</p></div>
+      <div class="legend"><span><i style="background:var(--accent)"></i>Clean / dry / launder</span><span><i style="background:var(--bad)"></i>Discard / remove</span><span><i style="background:var(--ochre)"></i>Professional or conditional</span></div>
+      <div id="fig-mat" style="display:grid;gap:8px"></div>
+    </div>
+    <div class="panel" style="display:grid;gap:12px">
+      <div style="display:grid;gap:4px"><h2>Bleach for routine cleanup?</h2><p class="muted">Only the CDC allows it outright.</p></div>
+      <div id="fig-bleach" style="display:grid;gap:6px"></div>
+    </div>
+  </section>
+
+  <section data-view="sources" hidden>
+    <div style="display:grid;gap:6px"><h2>Sources</h2><p class="muted">The guides and papers behind these tables, with the date each page gives.</p></div>
+    <div id="srclist" style="display:grid;gap:20px"></div>
+  </section>
+</main>
+<footer><div class="wrap">Compiled by Clara Han, University of Toronto. Information current as of November 2026. Check each source for its latest version.</div></footer>
+
+<script>
+const DATA = {"A1": [["Material / surface", "Porosity", "Source", "Recommended action", "Cleaning agent / method", "PPE / conditions / notes", "Source location"], [["Hard non-porous (glass, metal, hard plastic, sealed tile)", "Non-porous", "EPA", "Clean", "Scrub with detergent and water; dry completely", "N95, gloves, non-vented goggles", "Brief Guide: Cleanup Guidelines"], ["Hard non-porous", "Non-porous", "CDC", "Clean", "Bleach (≤1 cup per gallon water) OR dish detergent; ventilate", "N95 min; never mix bleach + ammonia", "Using bleach safely"], ["Hard non-porous", "Non-porous", "Health Canada", "Clean", "Scrub with cloth + unscented soap solution; dry quickly. Do NOT use bleach", "Goggles, N95, gloves", "Washable surfaces"], ["Hard non-porous", "Non-porous", "CCOHS", "Clean & reuse", "Soap or detergent; HEPA-vacuum; no bleach", "N95 + gloves + eye (scales with area)", "How should I clean the mold"], ["Hard non-porous", "Non-porous", "Ottawa PH", "Clean", "Cloth + unscented soap; sponge; dry quickly; bleach not required", "N95, non-vented goggles, gloves", "Washable surfaces"], ["Hard non-porous", "Non-porous", "HealthLink BC", "Clean", "Detergent and water; don't over-wet", "Rubber gloves, goggles, KN-95+", "How can I clean up mold"], ["Hard non-porous", "Non-porous", "NIH SOP", "Clean", "Vacuum or damp-wipe with water + mild detergent; scrub if needed", "PPE per area size (M/L/F)", "Appendix 1: Non-porous surfaces"], ["Hard non-porous", "Non-porous", "NCCEH", "Clean", "Scrub and clean", "Per area classification", "Removal of mold from structure"], ["Wall surface (mold on paint only)", "Semi-porous", "Health Canada", "Clean surface", "Damp cloth with baking soda or a little unscented soap; don't over-wet", "If mold is UNDER paint, remove & replace drywall", "Walls"], ["Wall surface (mold on paint only)", "Semi-porous", "Ottawa PH", "Clean surface", "Damp cloth + baking soda / unscented soap; don't over-wet", "Painting over mold only hides it", "Walls"], ["Wall surface (mold on paint only)", "Semi-porous", "EPA", "Clean then dry", "Clean up mold and dry before any painting/caulking", "Paint over mold will peel", "Cleanup Guidelines"], ["Drywall / gypsum wallboard", "Porous", "EPA", "Discard", "Porous; mold fills crevices - may be impossible to clean", "Throw away if moldy", "Cleanup Guidelines"], ["Drywall / gypsum wallboard", "Porous", "Health Canada", "Remove & replace", "If mold is under the paint, drywall must be removed & replaced", "", "Walls"], ["Drywall / gypsum wallboard", "Porous", "CCOHS", "Discard & replace", "Porous - throw out and replace rather than clean", "", "How should I clean the mold"], ["Drywall / gypsum wallboard", "Porous", "NCCEH", "Remove & discard", "Cannot be effectively cleaned", "", "Porous materials with mold growth"], ["Drywall / gypsum wallboard", "Porous", "NIH SOP", "Conditional", "May dry in place if no swelling & seams intact; otherwise remove/discard/replace ('when in doubt, tear it out')", "Wet wallboard in patient-care areas removed", "Appendix 1: Wallboard"], ["Drywall / gypsum wallboard", "Porous", "HealthLink BC", "Discard", "Throw out contaminated drywall", "", "How can I clean up mold"], ["Concrete / masonry", "Semi-porous", "Health Canada", "Clean", "Scrub with brush + unscented soap + warm water; sponge; dry quickly", "", "Concrete surfaces"], ["Concrete / masonry", "Semi-porous", "Ottawa PH", "Clean", "Scrub with unscented soap + warm water; remove cardboard sitting on concrete", "", "Concrete surfaces"], ["Concrete / masonry", "Semi-porous", "NIH SOP", "Dry / clean", "Water-extraction vacuum; dehumidifiers, blowers and/or heaters", "", "Appendix 1: Concrete/cinder block"], ["Concrete / masonry", "Semi-porous", "CCOHS", "Clean & reuse", "Semi-porous - clean with detergent if structurally sound", "", "How should I clean the mold"], ["Wood (framing / furniture / trim)", "Semi-porous", "Health Canada", "Clean", "Wood listed as washable - unscented soap solution; dry quickly", "", "Washable surfaces"], ["Wood (framing / furniture / trim)", "Semi-porous", "NCCEH", "Surface clean", "Scrape, scrub and HEPA-vacuum; examine structural integrity for replacement", "", "Semi-porous materials with mold growth"], ["Wood (framing / furniture / trim)", "Semi-porous", "NIH SOP", "Dry / clean", "Dehumidifiers, gentle heat, blowers; treated/finished wood wiped w/ mild detergent; pry wet panelling away", "Caution heating hardwood floors", "Appendix 1: Wood surfaces"], ["Wood (framing / furniture / trim)", "Semi-porous", "CCOHS", "Clean & reuse", "Detergent; reuse if structurally sound", "", "How should I clean the mold"], ["Carpet & underlay", "Porous", "EPA", "Discard", "Absorbent/porous - may have to be thrown away", "", "Cleanup Guidelines"], ["Carpet & underlay", "Porous", "Health Canada", "Cut out & discard", "moldy carpet/underpad cut out & discarded; clean & dry surface underneath", "", "Step 3: Clear wet areas"], ["Carpet & underlay", "Porous", "CCOHS", "Discard", "Throw out carpets that can't be properly cleaned", "", "How should I clean the mold"], ["Carpet & underlay", "Porous", "HealthLink BC", "Discard", "Throw out carpets with mildew", "", "How can I clean up mold"], ["Carpet & underlay", "Porous", "NIH SOP", "Dry (clean water <48h)", "Water-extraction vacuum; dehumidify; blowers; steam clean; ensure subfloor dry", "Discard if mold has grown", "Appendix 1: Carpet & backing"], ["Upholstered furniture / soft furnishings", "Porous", "Health Canada", "Discard", "Throw away sofas/cushions that got wet or moldy; surface cleaning may not work", "", "Step 1: Discard moldy materials"], ["Upholstered furniture / soft furnishings", "Porous", "NIH SOP", "Dry / consult pro", "Water-extraction vacuum; dehumidify/blowers; valuable items → restoration pro", "Hard to dry within 48h", "Appendix 1: Upholstered furniture"], ["Upholstered furniture / soft furnishings", "Porous", "CCOHS", "Discard", "Discard furnishings that cannot be properly cleaned", "", "How should I clean the mold"], ["Mattresses, bedding, plush toys", "Porous", "Health Canada", "Discard", "Cannot properly clean a moldy mattress; treat stuffed toys as bedding", "", "Step 1: Discard moldy materials"], ["Mattresses, bedding, plush toys", "Porous", "CCOHS", "Discard", "Throw away mattresses/pillows/bedding that can't be cleaned", "", "How should I clean the mold"], ["Clothing / fabric", "Porous", "Health Canada", "Discard or launder", "Discard if growth on it; nearby clothing washed at hottest safe temp, then air/vented-dry", "", "Step 1: Clothing"], ["Clothing / fabric", "Porous", "NIH SOP", "Launder", "Window drapes: follow manufacturer laundering/cleaning instructions", "", "Appendix 1: Window drapes"], ["Clothing / fabric", "Porous", "CCOHS", "Discard", "Fabric generally thrown out and replaced", "", "How should I clean the mold"], ["Paper, books, cardboard", "Porous", "Health Canada", "Discard", "Throw away moldy paper/books/cardboard; remove cardboard stored on concrete", "", "Step 1: Paper and cardboard"], ["Paper, books, cardboard", "Porous", "NIH SOP", "Discard / salvage", "Discard non-valuable; photocopy valuable then discard; freeze or freeze-dry", "", "Appendix 1: Books & papers"], ["Paper, books, cardboard", "Porous", "CCOHS", "Discard", "Porous - throw out and replace", "", "How should I clean the mold"], ["Ceiling tiles", "Porous", "EPA", "Discard", "Porous - may have to be thrown away", "", "Cleanup Guidelines"], ["Ceiling tiles", "Porous", "CCOHS", "Discard & replace", "Throw out and replace", "", "How should I clean the mold"], ["Ceiling tiles", "Porous", "NIH SOP", "Discard & replace", "Discard and replace", "", "Appendix 1: Ceiling tiles"], ["Ceiling tiles", "Porous", "NCCEH", "Remove & discard", "Cannot be effectively cleaned", "", "Porous materials with mold growth"], ["Insulation (cellulose / fibreglass)", "Porous", "NIH SOP", "Discard & replace", "Discard and replace", "", "Appendix 1: Insulation"], ["Insulation (cellulose / fibreglass)", "Porous", "CCOHS", "Discard", "Porous - throw out", "", "How should I clean the mold"], ["Insulation (cellulose / fibreglass)", "Porous", "Toronto / OHSCO", "Discard", "Porous affected by unsanitary water must be removed & discarded", "", "Appendix B"], ["Bathroom tile, grout, caulk", "Non-porous / porous grout", "EPA", "Clean / ventilate", "Scrub with detergent; increase ventilation & clean more often for recurring shower mold", "", "Bathroom tip"], ["Bathroom tile, grout, caulk", "Non-porous / porous grout", "Health Canada", "Clean / repair", "Wash tiles (soap); repair or replace cracked grout & caulking", "", "Appendix A: Bathroom"], ["Bathroom tile, grout, caulk", "Non-porous / porous grout", "NIH SOP", "Clean", "Porous flooring (tile grout, vinyl): damp-wipe water + mild detergent; scrub if needed", "", "Appendix 1: Hard porous flooring"], ["HVAC / ductwork", "Varies", "EPA", "Do not run; consult pro", "Don't run system if contaminated; consult air-duct guide before action", "Professional if contaminated", "Mold Cleanup"], ["HVAC / ductwork", "Varies", "CCOHS", "Clean small / pro large", "Small: clean as surface + turn HVAC off + dry before restart; large: professionals; biocide products exist for coils/pans per manufacturer", "HVAC off during cleaning", "HVAC contamination"], ["HVAC / ductwork", "Varies", "NCCEH", "Professional", "mold-contaminated HVAC needs professional remediation", "", "Remediate HVAC systems"], ["HVAC / ductwork", "Varies", "Toronto", "Shut down + qualified person", "Shut down HVAC serving area; qualified person; air sampling after Level 2+", "", "Appendix B"], ["Contaminated-water materials (sewage/flood)", "Varies", "Health Canada", "Professional", "Water contaminated with sewage/chemicals → hire a professional; discard porous", "", "Hiring a professional"], ["Contaminated-water materials (sewage/flood)", "Varies", "NCCEH", "Biocide + discard", "Biocides/disinfectants ARE required where contaminated water present", "", "Removal of mold from structure"], ["Contaminated-water materials (sewage/flood)", "Varies", "NIH SOP", "Discard + disinfect", "Dispose contaminated porous in sealed containers; PPE incl. N95; disinfect area", "", "Section E.2.c"]]], "T2": [["Dimension", "EPA", "CDC", "Health Canada", "CCOHS", "Ottawa PH", "HealthLink BC", "OSHA", "NCCEH"], [["Assessment", "", "", "", "", "", "", "", ""], ["Sampling / air testing", "Not routinely needed", "Not needed", "Not recommended", "Not recommended", "Not recommended", "Not addressed", "Not required", "Visual over sampling"], ["Scope & worker protection", "", "", "", "", "", "", "", ""], ["DIY vs professional threshold", "~10 sq ft", "By water-damage extent", "≤1 / 1-3 / >3 m²", "<1 / 1-3 / >3 m²", "Small (per HC)", "<1 m²", "Level I-IV (<10/10-30/30-100/>100 sq ft)", "≤1 / 1-4 / 4-10 / >10 m²"], ["Respiratory protection / PPE", "N95; gloves; goggles", "N95 min; half/full for large; gloves; goggles", "N95 (P100/N100 if needed); gloves; goggles", "N95→P100/HEPA→PAPR by area", "N95; non-vented goggles; gloves", "KN-95+; gloves; goggles", "N95 (29 CFR 1910.134)", "N95 by tier (M/L/F)"], ["Containment", "Larger → professional", "Not detailed", "Larger → contain / pro", "Scales with area", "Per HC", "Not addressed", "Level-based (limited/full)", "By area (minimal → full)"], ["Cleaning methods", "", "", "", "", "", "", "", ""], ["Non-porous / semi-porous surfaces", "Scrub, detergent + water; dry", "Bleach or detergent; ventilate", "Soap solution / baking soda; dry", "Soap or detergent; HEPA", "Soap; sponge; dry", "Detergent + water", "Damp-wipe detergent; HEPA", "Scrub & clean; wood scrape/HEPA"], ["Porous materials (drywall, carpet, ceiling tile)", "Discard", "Discard (implied)", "Discard / cut out", "Discard & replace", "Discard", "Discard", "(occupational)", "Remove & discard"], ["Primary cleaning agent", "Detergent + water", "Bleach (≤1 cup/gal) or dish detergent", "Unscented soap / baking soda", "Soap or detergent", "Unscented soap / baking soda", "Detergent + water", "Detergent solution", "Soap/detergent + water"], ["Biocide / bleach use", "No (pro-judgment)", "Yes — bleach or detergent", "No — “do not use bleach”", "No", "No — “not required”", "No", "No", "No (only contaminated water)"], ["HVAC / ductwork", "Don’t run; consult; pro", "Not detailed", "Larger → pro", "Small clean/off; large pro", "Per HC", "Not addressed", "Shut down; pro", "Professional"], ["Verification & prevention", "", "", "", "", "", "", "", ""], ["Clearance / verification", "Dry; no visible mold (“judgment call”)", "Dry; no visible mold", "Clean, dry, no odour", "Clean, dry", "Clean, dry, no odour", "No visible mold; dry", "Dry; visibly clean", "Visual + moisture; sampling optional"], ["Moisture-source control", "Identify & fix first", "Identify & fix first", "Identify & fix first", "Identify & fix first", "Identify & fix first", "Identify & fix first", "Identify & fix first", "Identify & fix first"]]], "A4": [["Comparison question", "EPA", "CDC", "Health Canada", "CCOHS", "Ottawa PH", "HealthLink BC", "OSHA", "NCCEH"], [["Bleach recommended for routine cleanup?", "No (pro-judgment exception)", "Yes — bleach or detergent", "No — 'do not use bleach'", "No", "No — 'not required'", "No (uses detergent)", "No (detergent)", "No routine; only pro-judgment / contaminated water"], ["Primary cleaning agent", "Detergent + water", "Bleach (≤1 cup/gal) or dish detergent", "Unscented soap / baking soda", "Soap or detergent", "Unscented soap / baking soda", "Detergent + water", "Detergent solution", "Soap/detergent + water"], ["Discard porous materials with growth?", "Yes", "Implied", "Yes", "Yes", "Yes", "Yes", "(occupational)", "Yes"], ["DIY vs professional threshold", "~10 sq ft", "By water-damage extent", "≤1 m² / 1-3 m² / >3 m²", "<1 m² / 1-3 m² / >3 m²", "Small (per HC)", "<1 m²", "Level I-IV: <10/10-30/30-100/>100 sq ft", "≤1 / 1-4 / 4-10 / >10 m²"], ["Respiratory protection", "N95", "N95 min; half/full for big jobs", "N95 (P100/N100 if needed)", "N95; P100/HEPA; PAPR (large)", "N95", "KN-95 or better", "N95 (per 1910.134)", "N95 (by tier)"], ["Fix moisture source emphasized?", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes"], ["Remove mold vs 'kill' with biocide", "Remove (dead still allergenic)", "Clean (bleach optional)", "Physical removal; killing/painting fails", "Removal; biocide not advised", "Removal", "Removal", "Removal", "Physical removal essential"], ["Air/testing for routine cases?", "Usually unnecessary", "Not needed", "Not recommended", "Not recommended", "Not recommended", "Not mentioned", "n/a", "Visual over sampling"], ["Guidance for renters / tenants?", "Yes", "Yes (disaster guide)", "Yes", "No (workplace)", "Yes — detailed (LTB, 3-1-1)", "No", "No (workplace)", "Refers to rental guidance"], ["Vulnerable populations flagged?", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes (asthma)", "Workers", "Yes"], ["Non-English / plain-language versions", "ES + ~11 langs", "ES + ~15 langs", "FR", "FR", "FR + Google/Somali/Arabic/Chinese", "8 languages", "ES", "EN (FR sister)"], ["Professional tied to a standard?", "EPA guide / ACGIH", "No", "IICRC, OSHA; ISO 17025 labs", "Refers to HC/NYC", "Refers to HC", "No", "General Duty Clause / 1910.134", "IICRC S520; AIHA"]]]};
+const SOURCES = [["Public agencies", [["US EPA, Mold Cleanup in Your Home", "https://www.epa.gov/mold/mold-cleanup-your-home", "Updated Jun 4, 2026"], ["US CDC, Mold Clean Up", "https://www.cdc.gov/mold-health/about/clean-up.html", "Updated Feb 6, 2024"], ["Health Canada, Guide to addressing moisture and mould indoors", "https://www.canada.ca/en/health-canada/services/publications/healthy-living/addressing-moisture-mould-your-home.html", "2023"], ["Ottawa Public Health, Mould", "https://www.ottawapublichealth.ca/en/public-health-topics/mould.aspx", "2025"], ["HealthLinkBC File 65b", "https://www.healthlinkbc.ca/healthlinkbc-files/indoor-air-quality-mould-and-other-biological-contaminants", "2024"], ["City of Toronto mould policy", "", "2007; rev. 2017"]]], ["Professional and occupational", [["OSHA, A Brief Guide to Mold in the Workplace", "https://www.osha.gov/publications/shib101003", "2003; rev. 2013"], ["CCOHS mould fact sheet", "", "2021"], ["NCCEH, Mould Remediation Recommendations", "https://ncceh.ca/sites/default/files/Mould_Remediation_Evidence_Review_March_2014.pdf", "2010; rev. 2014"], ["NEHA, Responding to Indoor Mold Concerns Guide", "https://pubs.neha.org/indoor-mold-concerns", "2025"], ["ANSI/IICRC S520-2024 (summary)", "https://blog.ansi.org/ansi/ansi-iicrc-s520-2024-professional-mold-remediation/", "2024"], ["AIHA mold resources", "", "2020"], ["NIH (DOHS) mold SOP", "", "2023"], ["OHSCO / PSHSA mould guideline", "", "c. 2010s"]]], ["Indigenous communities", [["ISC, Mould and your health in First Nations communities", "https://www.sac-isc.gc.ca/eng/1582657493726", "2020; mod. 2025"], ["CSSSPNQL, Breathe easy", "https://cssspnql.com/en/breathe-easy-spotting-and-preventing-mould-at-home/", "2026"], ["APNQL, The mold prevention cycle", "https://apnql.com/en/?p=8395", "Dec 2025"], ["CMHC, Mould in Housing (Indigenous housing)", "https://www.cmhc-schl.gc.ca/en/professionals/industry-innovation-and-leadership/industry-expertise/indigenous-housing/develop-manage-indigenous-housing/maintenance-solutions/mould-in-housing", ""], ["HUD ONAP, Mold and Moisture Prevention", "https://www.hud.gov/sites/documents/moldprevention.pdf", "2004"], ["IHS, Position Paper on Mold", "https://www.ihs.gov/sites/albuquerque/themes/responsive2017/display_objects/documents/oehe/DEHSPositionOnMold.pdf", "c. 2003"], ["Auditor General of Canada, Housing in First Nations Communities", "https://www.canada.ca/en/auditor-general/our-work/audit-reports/parl-oag-202403-02-e.html", "2024"], ["HUD Tribal Healthy Homes", "https://hud.gov/program_offices/healthy_homes/tribal_healthy_homes", ""]]], ["Research", [["Mendell et al. 2011, Environ Health Perspect", "https://doi.org/10.1289/ehp.1002410", "2011"], ["WHO 2009, Dampness and mould guidelines", "https://www.ncbi.nlm.nih.gov/books/NBK143943/", "2009"], ["Sauni et al. 2015, Cochrane review", "https://doi.org/10.1002/14651858.CD007897.pub3", "2015"], ["Howden-Chapman et al. 2007, BMJ", "https://doi.org/10.1136/bmj.39070.573032.80", "2007"], ["Kercsmar et al. 2006, Environ Health Perspect", "https://doi.org/10.1289/ehp.8742", "2006"], ["Burr et al. 2007, Thorax", "https://thorax.bmj.com/content/62/9/767", "2007"], ["Barnes et al. 2007, Ann Allergy Asthma Immunol", "https://doi.org/10.1016/S1081-1206(10)60716-8", "2007"], ["de Buyl & Gastaldi 2004, biocides in silicone sealants", "https://doi.org/10.1520/STP12566S", "2004"], ["Daraz et al. 2018, readability of online health information", "https://doi.org/10.1177/1062860617751639", "2018"], ["LeTourneau-Paci & Heacock 2018, Metro Vancouver mould survey", "https://doi.org/10.47339/ephj.2018.65", "2018"], ["Statistics Canada 2022, Indigenous housing conditions", "https://www12.statcan.gc.ca/census-recensement/2021/as-sa/98-200-X/2021007/98-200-X2021007-eng.cfm", "2022"], ["Pindus et al. 2017, AIAN housing needs", "https://www.huduser.gov/PORTAL/sites/default/files/pdf/HousingNeedsAmerIndians-ExecSumm.pdf", "2017"], ["Ware et al. 2014, rural Alaska Native households", "https://doi.org/10.3402/ijch.v73.24324", "2014"]]]];
+const $ = s => document.querySelector(s);
+const el = (tag, attrs = {}, ...kids) => { const e = document.createElement(tag); for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k === 'text') e.textContent = v; else e.setAttribute(k, v); } for (const c of kids) if (c != null) e.append(c); return e; };
+
+const VIEWS=['materials','compare','evaluation','professional','indigenous','figures','sources'];
+function route(){ const v=VIEWS.includes(location.hash.slice(1))?location.hash.slice(1):'materials';
+  document.querySelectorAll('section[data-view]').forEach(s=>s.hidden=s.dataset.view!==v);
+  document.querySelectorAll('nav a').forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+v?'page':'false'));
+  if(v==='figures') animateBars(); window.scrollTo(0,0); }
+addEventListener('hashchange',route);
+
+/* links in tables open in a new tab; tables scroll on their own */
+document.querySelectorAll('.prose a, #srclist a').forEach(a=>{a.target='_blank';a.rel='noopener';});
+document.querySelectorAll('#prof > table').forEach(t=>{ const w=el('div',{class:'tbl'}); t.replaceWith(w); w.append(t); });
+
+/* by material */
+const A1=DATA.A1[1].map(r=>({mat:r[0].replace(/ \(.*\)$/,'').trim(),full:r[0],por:r[1],src:r[2],act:r[3],how:r[4],ppe:r[5],loc:r[6]}));
+const MATS=[...new Set(A1.map(r=>r.mat))]; let matSel='';
+function chip(label,val){ const b=el('button',{type:'button',class:'chip','aria-pressed':String(matSel===val),text:label}); b.addEventListener('click',()=>{matSel=val; renderChips(); renderA1();}); return b; }
+function renderChips(){ $('#mat-chips').replaceChildren(chip('All materials',''),...MATS.map(m=>chip(m,m))); }
+const srcSel=$('#g-src'); [...new Set(A1.map(r=>r.src))].sort().forEach(s=>srcSel.append(el('option',{text:s})));
+function renderA1(){ const q=$('#g-q').value.toLowerCase(), s=srcSel.value; const tb=$('#a1 tbody'); tb.replaceChildren(); let last='';
+  const rows=A1.filter(r=>(!matSel||r.mat===matSel)&&(!s||r.src===s)&&(!q||Object.values(r).join(' ').toLowerCase().includes(q)));
+  if(!rows.length){ tb.append(el('tr',{},el('td',{colspan:6,class:'muted',text:'Nothing matches. Clear the search or pick another material.'}))); return; }
+  rows.forEach(r=>{ if(r.mat!==last){ tb.append(el('tr',{class:'group'},el('td',{colspan:6,text:`${r.full} · ${r.por}`}))); last=r.mat; }
+    tb.append(el('tr',{},el('td',{class:'muted',text:r.mat}),el('td',{text:r.src}),el('td',{},el('strong',{text:r.act})),el('td',{text:r.how}),el('td',{text:r.ppe}),el('td',{class:'muted',text:r.loc}))); }); }
+['#g-q','#g-src'].forEach(s=>$(s).addEventListener('input',renderA1));
+renderChips(); renderA1();
+
+/* eight-source comparison */
+(function(){ const [h,rows]=DATA.T2; const t=$('#t2'); t.append(el('thead',{},el('tr',{},...h.map(c=>el('th',{text:c})))));
+  const tb=el('tbody'); rows.forEach(r=>{ const sect=r.slice(1).every(c=>!c); tb.append(sect?el('tr',{class:'group'},el('td',{colspan:h.length,text:r[0]})):el('tr',{},...r.map(c=>el('td',{text:c})))); }); t.append(tb); })();
+
+/* figures */
+const FT=0.0929;
+const THR=[['US EPA',[10*FT]],['Health Canada',[1,3]],['CCOHS',[1,3]],['Ottawa PH (per HC)',[1,3]],['HealthLink BC',[1]],['NCCEH',[1,4,10]],['OSHA',[10*FT,30*FT,100*FT]],['CCA 82',[1,10]],['EACO 2015',[10*FT,100*FT]],['ISC',[1]],['CSSSPNQL',[1]],['HUD ONAP',[10*FT]],['IHS',[10*FT]]];
+(function(){ const svg=$('#fig-thr'); const NS=svg.namespaceURI; const W=760,L=150,R=730,top=34,rowH=24,H=top+THR.length*rowH+30; svg.setAttribute('viewBox',`0 0 ${W} ${H}`); svg.style.minWidth='560px'; svg.style.width='100%'; svg.style.display='block';
+  const lmin=Math.log10(0.5),lmax=Math.log10(15); const X=v=>L+(Math.log10(v)-lmin)/(lmax-lmin)*(R-L);
+  const s=(tag,a,txt)=>{const e=document.createElementNS(NS,tag); for(const k in a) e.setAttribute(k,a[k]); if(txt!=null) e.textContent=txt; svg.append(e); return e;};
+  [0.5,1,2,3,5,10].forEach(v=>{ s('line',{x1:X(v),x2:X(v),y1:top-8,y2:H-24,stroke:'var(--line)'}); s('text',{x:X(v),y:H-8,'text-anchor':'middle','font-size':11,fill:'var(--muted)','font-family':'var(--mono)'},v+' m²'); });
+  THR.forEach(([name,vals],i)=>{ const y=top+i*rowH; s('text',{x:L-10,y:y+4,'text-anchor':'end','font-size':12.5,fill:'var(--ink)'},name);
+    if(vals.length>1) s('line',{x1:X(vals[0]),x2:X(vals.at(-1)),y1:y,y2:y,stroke:'var(--accent)','stroke-opacity':.35,'stroke-width':3});
+    vals.forEach((v,j)=>s('circle',{cx:X(v),cy:y,r:j===0?6:4.5,fill:j===0?'var(--accent)':'var(--surface)',stroke:'var(--accent)','stroke-width':1.5})); });
+  s('text',{x:L,y:14,'font-size':11,fill:'var(--muted)'},'Filled dot = largest area residents are told to clean themselves; open dots = higher tiers');
+})();
+function classify(a){ a=a.toLowerCase(); if(/discard|remove|cut out|throw/.test(a)) return 'discard'; if(/professional|pro\b|shut down|conditional|consult/.test(a)) return 'pro'; return 'clean'; }
+(function(){ const box=$('#fig-mat'); MATS.forEach(m=>{ const rs=A1.filter(r=>r.mat===m); const c={clean:0,discard:0,pro:0}; rs.forEach(r=>c[classify(r.act)]++); const n=rs.length;
+  const seg=(k,col)=>c[k]?el('div',{class:'bar',style:`width:0;background:${col};height:100%`,'data-w':(c[k]/n*100).toFixed(1)+'%',title:`${c[k]} of ${n}`}):null;
+  box.append(el('div',{style:'display:grid;grid-template-columns:minmax(110px,220px) 1fr auto;gap:10px;align-items:center'},
+    el('span',{style:'font-size:13px',text:m}),
+    el('div',{style:'display:flex;height:14px;border-radius:3px;overflow:hidden;background:var(--line)'},seg('clean','var(--accent)'),seg('discard','var(--bad)'),seg('pro','var(--ochre)')),
+    el('span',{class:'mono',text:`${n} sources`}))); }); })();
+(function(){ const [h,rows]=DATA.A4; const r=rows.find(x=>/bleach/i.test(x[0])); const box=$('#fig-bleach');
+  h.slice(1).forEach((src,i)=>{ const v=r[i+1]; const yes=/^yes/i.test(v), part=/judgment|contaminated/i.test(v);
+    box.append(el('div',{style:'display:grid;grid-template-columns:minmax(110px,160px) auto 1fr;gap:10px;align-items:center'},el('strong',{style:'font-size:13px',text:src}),
+      el('span',{class:'pill '+(yes?'p-yes':part?'p-part':'p-no'),text:yes?'allowed':part?'exceptions only':'no'}),el('span',{class:'muted',style:'font-size:13px',text:v}))); }); })();
+let animated=false; function animateBars(){ if(animated) return; animated=true; requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.bar').forEach(b=>b.style.width=b.dataset.w))); }
+if(matchMedia('(prefers-reduced-motion: reduce)').matches) document.querySelectorAll('.bar').forEach(b=>b.style.width=b.dataset.w);
+
+/* sources */
+(function(){ const box=$('#srclist'); SOURCES.forEach(([g,items])=>{ const ul=el('ul'); items.forEach(([n,u,d])=>ul.append(el('li',{},u?el('a',{href:u,target:'_blank',rel:'noopener',text:n}):el('span',{text:n}),el('span',{class:'mono',text:d}))));
+  box.append(el('div',{class:'panel srcgroup'},el('h3',{style:'margin:0',text:g}),ul)); }); })();
+
+route();
+</script>
+</body>
+</html>
