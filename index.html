@@ -4,96 +4,223 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Mold Guidance Research</title>
-<meta name="description" content="A comparison of public and professional mold-cleaning guidance from Canada and the United States.">
+<meta name="description" content="How Canadian and US guides tell residents to clean up mold, compared side by side.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
 <style>
-/* Layout: a research notebook. Sticky top bar with tabs; each tab is one body of findings. */
+/* Layout: an illustrated field guide. A home page with a house cross-section as the map, then one page per topic. */
 :root{
-  --bg:#eef1ee; --surface:#f8faf7; --line:#d3dad3; --ink:#18201d; --muted:#5b6762;
-  --accent:#1e6f62; --accent-soft:#d6e8e3; --ochre:#9a6416; --bad:#a83a32; --ok:#2f7d3a;
-  --ok-soft:#dcefdc; --warn-soft:#f6e8cf; --bad-soft:#f6dcd8;
-  --display:"Familjen Grotesk","Helvetica Neue",Arial,sans-serif;
-  --body:"Atkinson Hyperlegible","Segoe UI",Roboto,Arial,sans-serif;
+  --bg:#f3f4f8; --surface:#ffffff; --raised:#f8f9fc; --ink:#101527; --muted:#5a6278; --line:#e1e4ec;
+  --accent:#3046e0; --accent-soft:#e7eafd; --spot:#e8a317; --spot-soft:#fdf1d6;
+  --good:#1a8a5f; --good-soft:#dcf3e9; --bad:#d0443a; --bad-soft:#fbe3e1;
+  --house:#cfd5e3; --house-fill:#ffffff; --water:#7aa5e8;
+  --display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --body:"Plus Jakarta Sans","Segoe UI",Roboto,Arial,sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
-  color-scheme:light;
+  --radius:16px; color-scheme:light;
 }
 @media (prefers-color-scheme: dark){:root{
-  --bg:#131917; --surface:#1a2220; --line:#2d3834; --ink:#e4ebe7; --muted:#9aa8a2;
-  --accent:#6cc3b1; --accent-soft:#1f3832; --ochre:#e0a955; --bad:#ec8a80; --ok:#7fca86;
-  --ok-soft:#1f3322; --warn-soft:#3a2d17; --bad-soft:#3d211e; color-scheme:dark}}
+  --bg:#0d1020; --surface:#161a2e; --raised:#1b2036; --ink:#eef0f7; --muted:#a0a7bd; --line:#272c46;
+  --accent:#8c9bff; --accent-soft:#232a55; --spot:#f5c25c; --spot-soft:#3a2f14;
+  --good:#4cc795; --good-soft:#163428; --bad:#f07468; --bad-soft:#3d1d1b;
+  --house:#3a4166; --house-fill:#1b2036; --water:#6f95d6; color-scheme:dark}}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--body);padding-bottom:env(safe-area-inset-bottom,0px)}
-.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-header{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
-.top{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;padding-block:14px 6px}
-h1{font:600 22px/1.2 var(--display);margin:0;letter-spacing:-.01em}
-.sub{color:var(--muted);font-size:13px}
-nav{display:flex;gap:4px;overflow-x:auto;padding-bottom:8px}
-nav a{font:500 14px var(--display);color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:999px;white-space:nowrap}
-nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
-a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-main{padding-block:24px 48px}
-section[data-view]{display:grid;gap:20px}
-h2{font:600 19px/1.25 var(--display);margin:0;text-wrap:balance}
-h3{font:600 15px/1.3 var(--display);margin:8px 0 0}
-p{margin:0;max-width:68ch}
-.muted{color:var(--muted)}
-.label{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;min-width:0}
-.scroll{overflow-x:auto}
-table{border-collapse:collapse;width:100%;font-size:13.5px}
-th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
-th{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface)}
-tr.group td{font:600 12px var(--display);color:var(--accent);background:var(--accent-soft)}
+body{background:var(--bg);color:var(--ink);font:15.5px/1.6 var(--body);padding-bottom:env(safe-area-inset-bottom,0px);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
 a{color:var(--accent)}
-.prose{display:grid;gap:14px}
-.prose table{min-width:720px}
-.prose ul{margin:0;padding-left:20px;max-width:80ch}
-.prose li{margin:4px 0}
-.prose .tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
-.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-select,input{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 9px}
-input[type=search]{min-width:0;flex:1 1 200px}
-.chip{font:500 12px var(--mono);border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--surface);color:var(--muted);cursor:pointer}
-.chip[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
-.matrix td:first-child{font-weight:700;min-width:170px}
-.pill{display:inline-block;font:500 11.5px var(--mono);padding:2px 8px;border-radius:999px;white-space:nowrap}
-.p-no{background:var(--ok-soft);color:var(--ok)} .p-part{background:var(--warn-soft);color:var(--ochre)} .p-yes{background:var(--bad-soft);color:var(--bad)}
-.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--muted)}
-.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
-.bar{transition:width .7s cubic-bezier(.2,.7,.2,1)}
-@media (prefers-reduced-motion: reduce){.bar{transition:none}}
-.srcgroup{display:grid;gap:6px}
-.srcgroup ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
-.srcgroup li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}
-.mono{font-family:var(--mono);font-size:12.5px;color:var(--muted);white-space:nowrap}
-footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);font-size:13px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.bar{display:flex;align-items:center;gap:20px;min-height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font:800 18px/1 var(--display);letter-spacing:-.01em;white-space:nowrap}
+.brand svg{flex:none}
+nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+nav::-webkit-scrollbar{display:none}
+nav a{font:600 14px var(--body);color:var(--muted);text-decoration:none;padding:8px 14px;border-radius:999px;white-space:nowrap}
+nav a:hover{color:var(--ink)}
+nav a[aria-current="page"]{background:var(--ink);color:var(--bg)}
+@media (max-width:860px){.bar{flex-wrap:wrap;gap:6px;padding-block:10px 8px}nav{margin-left:0;width:100%}}
+
+main{padding-block:32px 72px}
+section[data-view]{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;animation:fade .35s ease}
+section[data-view] > *,.fig > *{min-width:0}
+@keyframes fade{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){section[data-view]{animation:none}}
+h1,h2,h3{font-family:var(--display);letter-spacing:-.015em;margin:0;text-wrap:balance}
+h1{font-size:clamp(32px,5vw,54px);line-height:1.04;font-weight:800}
+h2{font-size:clamp(22px,2.6vw,30px);line-height:1.15;font-weight:700}
+h3{font-size:17px;line-height:1.3;font-weight:700}
+p{margin:0;max-width:66ch}
+.lead{font-size:17px;color:var(--muted)}
+.muted{color:var(--muted)}
+.eyebrow{font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.head{display:grid;gap:8px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;min-width:0}
+
+/* home */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:36px;align-items:center}
+@media (max-width:900px){.hero{grid-template-columns:1fr}}
+.hero-text{display:grid;gap:18px}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:6px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.stat b{display:block;font:800 28px/1 var(--display);font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--muted)}
+.house{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:14px}
+.house svg{display:block;width:100%;height:auto}
+.hot{cursor:pointer}
+.hot circle.ring{fill:none;stroke:var(--spot);stroke-width:2;transform-box:fill-box;transform-origin:center;animation:pulse 2.4s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.9);opacity:0}}
+@media (prefers-reduced-motion: reduce){.hot circle.ring{animation:none;opacity:.5}}
+.hot:hover circle.dot,.hot:focus-visible circle.dot{fill:var(--accent)}
+.hint{font-size:13px;color:var(--muted);text-align:center;margin-top:6px}
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;counter-reset:s}
+@media (max-width:900px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:grid;gap:10px;align-content:start;position:relative}
+.step .n{font:500 12px var(--mono);color:var(--muted)}
+.step svg{width:44px;height:44px}
+.split{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.split{grid-template-columns:1fr}}
+.tile{display:grid;gap:10px;align-content:start;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;transition:transform .2s,border-color .2s}
+.tile:hover{transform:translateY(-2px);border-color:var(--accent)}
+.tile .go{font:600 14px var(--body);color:var(--accent)}
+.tag{justify-self:start;display:inline-block;font:500 11px var(--mono);letter-spacing:.04em;padding:3px 9px;border-radius:999px;background:var(--raised);border:1px solid var(--line);color:var(--muted)}
+
+/* figures */
+.fig{display:grid;gap:14px}
+.fig svg{display:block;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.scroll{overflow-x:auto}
+
+/* materials */
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.mcard{display:grid;gap:10px;text-align:left;font:inherit;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.mcard:hover{border-color:var(--accent)}
+.mcard[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.mcard strong{font:700 15px/1.3 var(--display)}
+.stack{display:flex;height:10px;border-radius:999px;overflow:hidden;background:var(--line)}
+.stack span{height:100%;transition:width .8s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-reduced-motion: reduce){.stack span{transition:none}}
+.mmeta{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted)}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+select,input{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 12px}
+input[type=search]{flex:1 1 220px;min-width:0}
+.clear{font:600 13px var(--body);background:none;border:none;color:var(--accent);cursor:pointer;padding:6px}
+
+/* tables */
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+.tbl table{min-width:760px}
+th,td{text-align:left;vertical-align:top;padding:11px 14px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:none}
+th{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--raised)}
+tbody tr:hover td{background:var(--raised)}
+tr.group td{font:700 13px var(--display);color:var(--accent);background:var(--accent-soft)}
+td.k{font-weight:700;min-width:170px}
+.act{display:inline-block;font:600 12px var(--body);padding:2px 9px;border-radius:999px;white-space:nowrap}
+.a-clean{background:var(--good-soft);color:var(--good)}
+.a-discard{background:var(--bad-soft);color:var(--bad)}
+.a-pro{background:var(--spot-soft);color:color-mix(in srgb,var(--spot) 70%,var(--ink))}
+
+/* compare sub-tabs */
+.seg{display:flex;gap:6px;overflow-x:auto;padding:4px;background:var(--surface);border:1px solid var(--line);border-radius:999px;width:max-content;max-width:100%}
+.seg button{font:600 13.5px var(--body);color:var(--muted);background:none;border:none;border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+.seg button[aria-selected="true"]{background:var(--accent);color:#fff}
+.bleach{display:grid;gap:8px}
+.brow{display:grid;grid-template-columns:150px auto 1fr;gap:12px;align-items:center;font-size:14px}
+@media (max-width:560px){.brow{grid-template-columns:1fr auto}.brow .why{grid-column:1/-1}}
+
+/* professional prose */
+.prose{display:grid;gap:16px}
+.prose h3{font-size:20px;margin-top:14px}
+.prose ul{margin:0;padding-left:20px;max-width:82ch}
+.prose li{margin:5px 0}
+.pipe{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.pipe{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pstage{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:8px;align-content:start}
+.pstage svg{width:36px;height:36px}
+.pstage p{font-size:13.5px;color:var(--muted)}
+
+/* sources */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.slist{list-style:none;margin:0;padding:0}
+.slist li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.slist li:last-child{border-bottom:none}
+.date{font:500 12px var(--mono);color:var(--muted);white-space:nowrap}
+footer{border-top:1px solid var(--line);padding-block:24px;color:var(--muted);font-size:13px}
 </style>
 </head>
 <body>
 <header>
-  <div class="wrap">
-    <div class="top"><h1>Mold Guidance Research</h1><span class="sub">How public and professional sources tell people to clean up mold</span></div>
-    <nav aria-label="Sections">
-      <a href="#materials">By material</a><a href="#compare">Compare sources</a><a href="#evaluation">Evaluation</a><a href="#professional">Professional practice</a><a href="#indigenous">Indigenous communities</a><a href="#figures">Figures</a><a href="#sources">Sources</a>
+  <div class="wrap bar">
+    <a class="brand" href="#home" aria-label="Mold Guidance Research, home">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="13" fill="var(--accent)"/><circle cx="10" cy="11" r="3" fill="var(--spot)"/><circle cx="17" cy="9" r="2" fill="var(--spot)"/><circle cx="18" cy="17" r="3.5" fill="var(--spot)"/><circle cx="10" cy="19" r="1.6" fill="var(--spot)"/></svg>
+      Mold Guidance
+    </a>
+    <nav aria-label="Pages">
+      <a href="#home">Overview</a><a href="#materials">By material</a><a href="#compare">Compare guides</a><a href="#professional">Professionals</a><a href="#indigenous">Indigenous communities</a><a href="#sources">Sources</a>
     </nav>
   </div>
 </header>
 
 <main class="wrap">
-  <section data-view="materials">
-    <div style="display:grid;gap:6px"><h2>What to do, material by material</h2><p class="muted">What each source says to do with each material. Pick a material or a source to narrow it, or search for a word like bleach, HEPA or caulk.</p></div>
-    <div class="controls" id="mat-chips"></div>
-    <div class="controls"><label class="label" for="g-src">Source</label><select id="g-src"><option value="">All</option></select><label class="label" for="g-q">Search</label><input id="g-q" type="search" placeholder="e.g. bleach, HEPA, caulk"></div>
-    <div class="panel scroll" style="padding:0"><table id="a1"><thead><tr><th>Material</th><th>Source</th><th>Action</th><th>Cleaning agent / method</th><th>PPE / notes</th><th>Where in source</th></tr></thead><tbody></tbody></table></div>
-  </section>
 
-  <section data-view="compare" hidden>
-    <div style="display:grid;gap:6px"><h2>Twelve institutional sources</h2><p class="muted">Who publishes each guide, who it is for, and what it is based on.</p></div>
-    <div class="prose"><div class="tbl"><table>
+<!-- HOME -->
+<section data-view="home">
+  <div class="hero">
+    <div class="hero-text">
+      <span class="eyebrow">Research by Clara Han · University of Toronto</span>
+      <h1>How should you clean up mold? It depends which guide you read.</h1>
+      <p class="lead">I compared mold-cleaning guidance from Canadian and US agencies, professional standards and guides written for Indigenous communities. They agree on the basics and split on the details a resident actually has to decide.</p>
+      <div class="stats">
+        <div class="stat"><b>12</b><span>institutional guides compared</span></div>
+        <div class="stat"><b>5</b><span>professional standards reviewed</span></div>
+        <div class="stat"><b>15</b><span>materials, from drywall to ductwork</span></div>
+        <div class="stat"><b>5</b><span>guides for Indigenous communities</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="house" id="house"></div>
+      <p class="hint">Tap a yellow spot to see what the guides say about that part of the home.</p>
+    </div>
+  </div>
+
+  <div class="head"><span class="eyebrow">Where the guides agree</span><h2>The cleanup most guides describe</h2><p class="muted">Every guide in the comparison puts the moisture source first. Most then follow the same order.</p></div>
+  <div class="steps" id="steps"></div>
+
+  <div class="head"><span class="eyebrow">Where they split</span><h2>Three decisions with different answers</h2></div>
+  <div class="split">
+    <a class="tile" href="#compare" data-sub="size"><span class="tag">Size</span><h3>When is it too big to clean yourself?</h3><p class="muted">About 10 ft², 1 m² or 3 m², depending on the guide. Some use three or four tiers.</p><span class="go">See the sizes drawn to scale →</span></a>
+    <a class="tile" href="#compare" data-sub="bleach"><span class="tag">Bleach</span><h3>Should you use bleach?</h3><p class="muted">Health Canada says no. The CDC allows a weak solution. Most others say not routinely.</p><span class="go">Compare positions →</span></a>
+    <a class="tile" href="#materials" data-mat="Bathroom tile, grout, caulk"><span class="tag">Surfaces</span><h3>What about grout and caulk?</h3><p class="muted">Only three of twelve guides mention bathroom tile, grout or caulking.</p><span class="go">See bathroom advice →</span></a>
+  </div>
+</section>
+
+<!-- MATERIALS -->
+<section data-view="materials" hidden>
+  <div class="head"><span class="eyebrow">By material</span><h2>Clean it or throw it out?</h2><p class="muted">Each card shows how many guides say to clean, to discard, or to call a professional. Choose a card to read what each guide says.</p></div>
+  <div class="legend"><span><i style="background:var(--good)"></i>Clean, dry or launder</span><span><i style="background:var(--bad)"></i>Discard or remove</span><span><i style="background:var(--spot)"></i>Professional or case by case</span></div>
+  <div class="mgrid" id="mgrid"></div>
+  <div class="tools"><label for="g-q" class="eyebrow">Search</label><input id="g-q" type="search" placeholder="bleach, HEPA, caulk…"><label for="g-src" class="eyebrow">Guide</label><select id="g-src"><option value="">All guides</option></select><button class="clear" id="g-clear" type="button">Clear filters</button></div>
+  <div class="tbl"><table id="a1"><thead><tr><th>Material</th><th>Guide</th><th>Action</th><th>Cleaning agent / method</th><th>PPE / notes</th><th>Where in guide</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<!-- COMPARE -->
+<section data-view="compare" hidden>
+  <div class="head"><span class="eyebrow">Compare guides</span><h2>Side by side</h2></div>
+  <div class="seg" role="tablist" id="seg">
+    <button role="tab" data-p="size">Size limits</button><button role="tab" data-p="bleach">Bleach</button><button role="tab" data-p="matrix">8-guide matrix</button><button role="tab" data-p="twelve">12 guides</button><button role="tab" data-p="consistency">Consistency</button><button role="tab" data-p="evaluation">Evaluation</button><button role="tab" data-p="access">Accessibility</button>
+  </div>
+  <div data-p="size" class="card fig"><div class="head"><h3>How big is the do-it-yourself limit?</h3><p class="muted">Each square is drawn to scale beside a standard door. Below each square are the guides that use that size as a cut-off.</p></div><div class="scroll"><svg id="fig-squares" role="img" aria-label="Size cut-offs drawn to scale"></svg></div><p class="muted" style="font-size:13px">10 ft² ≈ 0.93 m². ISC describes 1 m² as about a large garbage bag folded in half. The CDC gives no size.</p></div>
+  <div data-p="size" class="card fig"><div class="head"><h3>Every tier, by guide</h3><p class="muted">Filled dot = the largest area residents are told to clean themselves. Open dots = higher tiers. Log scale, in m².</p></div><div class="scroll"><svg id="fig-thr" role="img" aria-label="Size thresholds by guide"></svg></div></div>
+  <div data-p="bleach" class="card fig"><div class="head"><h3>Is bleach recommended for routine cleanup?</h3><p class="muted">Only the CDC allows it outright.</p></div><div class="bleach" id="fig-bleach"></div></div>
+  <div data-p="matrix" class="tbl"><table id="t2"></table></div>
+  <div data-p="twelve" class="tbl"><table>
 <thead>
 <tr>
 <th>Source</th>
@@ -215,11 +342,8 @@ footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);fo
 <td>PDF; EN (FR sister centre)</td>
 </tr>
 </tbody>
-</table></div></div>
-    <div style="display:grid;gap:6px"><h2>Eight sources side by side</h2><p class="muted">Assessment, protection, cleaning and prevention.</p></div>
-    <div class="panel scroll" style="padding:0"><table class="matrix" id="t2"></table></div>
-    <div style="display:grid;gap:6px"><h2>Consistency check</h2></div>
-    <div class="prose"><div class="tbl"><table>
+</table></div>
+  <div data-p="consistency" class="tbl"><table>
 <thead>
 <tr>
 <th>Comparison question</th>
@@ -367,12 +491,8 @@ footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);fo
 <td>IICRC S520; AIHA</td>
 </tr>
 </tbody>
-</table></div></div>
-  </section>
-
-  <section data-view="evaluation" hidden>
-    <div style="display:grid;gap:6px"><h2>Evaluation matrix</h2><p class="muted">Communication, populations named, accessibility, evidence and limitations for each source.</p></div>
-    <div class="prose"><div class="tbl"><table>
+</table></div>
+  <div data-p="evaluation" class="tbl"><table>
 <thead>
 <tr>
 <th>Source</th>
@@ -481,9 +601,8 @@ footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);fo
 <td>Dated 2010; written for public-health inspectors despite a homeowner focus; explicitly excludes flooding, hidden mold and grow-ops; candidly rests on a weak evidence base; English (French via a sister centre).</td>
 </tr>
 </tbody>
-</table></div></div>
-    <div style="display:grid;gap:6px"><h2>Communication and accessibility</h2></div>
-    <div class="prose"><div class="tbl"><table>
+</table></div>
+  <div data-p="access" class="tbl"><table>
 <thead>
 <tr>
 <th>Source</th>
@@ -579,12 +698,14 @@ footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);fo
 <td>Includes a 'recommended resources for homeowners' list (CMHC, Health Canada, NIEHS, CDC, EPA). Flaw: a 2010 document, so several links are dated.</td>
 </tr>
 </tbody>
-</table></div></div>
-  </section>
+</table></div>
+</section>
 
-  <section data-view="professional" hidden>
-    <div style="display:grid;gap:6px"><h2>Professional mold remediation</h2><p class="muted">Industry practice and recommendations: the standards remediators follow, what happens on a job, add-on treatments, what companies tell homeowners, and regulation in Ontario.</p></div>
-    <div class="prose" id="prof"><h3>Standards remediators follow</h3>
+<!-- PROFESSIONAL -->
+<section data-view="professional" hidden>
+  <div class="head"><span class="eyebrow">Professional remediation</span><h2>What happens when you hire someone</h2><p class="muted">Remediators follow standards such as ANSI/IICRC S520. A job moves through these stages, far beyond what consumer guides describe.</p></div>
+  <div class="pipe" id="pipe"></div>
+  <div class="prose" id="prof"><h3>Standards remediators follow</h3>
 <table>
 <thead>
 <tr>
@@ -845,11 +966,12 @@ footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);fo
 </ul>
 <p>The ANSI summary of S520-2024 adds that most mold remediation firms are not correctly insured and do not know it (<a href="https://blog.ansi.org/ansi/ansi-iicrc-s520-2024-professional-mold-remediation/">ANSI</a>), which makes the insurance item more than a formality.</p>
 <p>Institutions often impose stricter rules than homes face. The University of Toronto's Mold Control Program classifies work as Levels I-IVb, bans disposable respirators and requires misting materials before removal (<a href="https://ehs.utoronto.ca/wp-content/uploads/2014/06/Mould-Control-Program-Procedures-4-FINAL-20170821.pdf">U of T EHS</a>).</p></div>
-  </section>
+</section>
 
-  <section data-view="indigenous" hidden>
-    <div style="display:grid;gap:6px"><h2>Guidance for Indigenous communities</h2><p class="muted">Household mold guides written by, with or for First Nations and US tribal communities.</p></div>
-    <div class="prose"><div class="tbl"><table>
+<!-- INDIGENOUS -->
+<section data-view="indigenous" hidden>
+  <div class="head"><span class="eyebrow">Indigenous communities</span><h2>Guides written by, with or for Indigenous communities</h2><p class="muted">They repeat mainstream cleaning methods. What they add is a referral pathway: who to contact when the mold is too big to handle.</p></div>
+  <div class="tbl"><table>
 <thead>
 <tr>
 <th>Source</th>
@@ -896,96 +1018,215 @@ footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);fo
 <td>Environmental Health Officer</td>
 </tr>
 </tbody>
-</table></div></div>
-  </section>
+</table></div>
+</section>
 
-  <section data-view="figures" hidden>
-    <div class="panel" style="display:grid;gap:12px">
-      <div style="display:grid;gap:4px"><h2>When to call a professional</h2><p class="muted">Each dot is a size cut-off a source uses, converted to m² (10 ft² ≈ 0.93 m²). Log scale. The CDC gives no size and is left out.</p></div>
-      <div class="scroll"><svg id="fig-thr" role="img" aria-label="Size thresholds by source"></svg></div>
-    </div>
-    <div class="panel" style="display:grid;gap:12px">
-      <div style="display:grid;gap:4px"><h2>Clean or discard, by material</h2><p class="muted">How many sources say to clean, to discard, or to call a professional or decide case by case.</p></div>
-      <div class="legend"><span><i style="background:var(--accent)"></i>Clean / dry / launder</span><span><i style="background:var(--bad)"></i>Discard / remove</span><span><i style="background:var(--ochre)"></i>Professional or conditional</span></div>
-      <div id="fig-mat" style="display:grid;gap:8px"></div>
-    </div>
-    <div class="panel" style="display:grid;gap:12px">
-      <div style="display:grid;gap:4px"><h2>Bleach for routine cleanup?</h2><p class="muted">Only the CDC allows it outright.</p></div>
-      <div id="fig-bleach" style="display:grid;gap:6px"></div>
-    </div>
-  </section>
+<!-- SOURCES -->
+<section data-view="sources" hidden>
+  <div class="head"><span class="eyebrow">Sources</span><h2>Where this comes from</h2><p class="muted">The guides and papers behind these pages, with the date each page gives. Check each one for its latest version.</p></div>
+  <div class="sgrid" id="srclist"></div>
+</section>
 
-  <section data-view="sources" hidden>
-    <div style="display:grid;gap:6px"><h2>Sources</h2><p class="muted">The guides and papers behind these tables, with the date each page gives.</p></div>
-    <div id="srclist" style="display:grid;gap:20px"></div>
-  </section>
 </main>
-<footer><div class="wrap">Compiled by Clara Han, University of Toronto. Information current as of November 2026. Check each source for its latest version.</div></footer>
+<footer><div class="wrap">Compiled by Clara Han, University of Toronto. Information current as of November 2026.</div></footer>
 
 <script>
 const DATA = {"A1": [["Material / surface", "Porosity", "Source", "Recommended action", "Cleaning agent / method", "PPE / conditions / notes", "Source location"], [["Hard non-porous (glass, metal, hard plastic, sealed tile)", "Non-porous", "EPA", "Clean", "Scrub with detergent and water; dry completely", "N95, gloves, non-vented goggles", "Brief Guide: Cleanup Guidelines"], ["Hard non-porous", "Non-porous", "CDC", "Clean", "Bleach (≤1 cup per gallon water) OR dish detergent; ventilate", "N95 min; never mix bleach + ammonia", "Using bleach safely"], ["Hard non-porous", "Non-porous", "Health Canada", "Clean", "Scrub with cloth + unscented soap solution; dry quickly. Do NOT use bleach", "Goggles, N95, gloves", "Washable surfaces"], ["Hard non-porous", "Non-porous", "CCOHS", "Clean & reuse", "Soap or detergent; HEPA-vacuum; no bleach", "N95 + gloves + eye (scales with area)", "How should I clean the mold"], ["Hard non-porous", "Non-porous", "Ottawa PH", "Clean", "Cloth + unscented soap; sponge; dry quickly; bleach not required", "N95, non-vented goggles, gloves", "Washable surfaces"], ["Hard non-porous", "Non-porous", "HealthLink BC", "Clean", "Detergent and water; don't over-wet", "Rubber gloves, goggles, KN-95+", "How can I clean up mold"], ["Hard non-porous", "Non-porous", "NIH SOP", "Clean", "Vacuum or damp-wipe with water + mild detergent; scrub if needed", "PPE per area size (M/L/F)", "Appendix 1: Non-porous surfaces"], ["Hard non-porous", "Non-porous", "NCCEH", "Clean", "Scrub and clean", "Per area classification", "Removal of mold from structure"], ["Wall surface (mold on paint only)", "Semi-porous", "Health Canada", "Clean surface", "Damp cloth with baking soda or a little unscented soap; don't over-wet", "If mold is UNDER paint, remove & replace drywall", "Walls"], ["Wall surface (mold on paint only)", "Semi-porous", "Ottawa PH", "Clean surface", "Damp cloth + baking soda / unscented soap; don't over-wet", "Painting over mold only hides it", "Walls"], ["Wall surface (mold on paint only)", "Semi-porous", "EPA", "Clean then dry", "Clean up mold and dry before any painting/caulking", "Paint over mold will peel", "Cleanup Guidelines"], ["Drywall / gypsum wallboard", "Porous", "EPA", "Discard", "Porous; mold fills crevices - may be impossible to clean", "Throw away if moldy", "Cleanup Guidelines"], ["Drywall / gypsum wallboard", "Porous", "Health Canada", "Remove & replace", "If mold is under the paint, drywall must be removed & replaced", "", "Walls"], ["Drywall / gypsum wallboard", "Porous", "CCOHS", "Discard & replace", "Porous - throw out and replace rather than clean", "", "How should I clean the mold"], ["Drywall / gypsum wallboard", "Porous", "NCCEH", "Remove & discard", "Cannot be effectively cleaned", "", "Porous materials with mold growth"], ["Drywall / gypsum wallboard", "Porous", "NIH SOP", "Conditional", "May dry in place if no swelling & seams intact; otherwise remove/discard/replace ('when in doubt, tear it out')", "Wet wallboard in patient-care areas removed", "Appendix 1: Wallboard"], ["Drywall / gypsum wallboard", "Porous", "HealthLink BC", "Discard", "Throw out contaminated drywall", "", "How can I clean up mold"], ["Concrete / masonry", "Semi-porous", "Health Canada", "Clean", "Scrub with brush + unscented soap + warm water; sponge; dry quickly", "", "Concrete surfaces"], ["Concrete / masonry", "Semi-porous", "Ottawa PH", "Clean", "Scrub with unscented soap + warm water; remove cardboard sitting on concrete", "", "Concrete surfaces"], ["Concrete / masonry", "Semi-porous", "NIH SOP", "Dry / clean", "Water-extraction vacuum; dehumidifiers, blowers and/or heaters", "", "Appendix 1: Concrete/cinder block"], ["Concrete / masonry", "Semi-porous", "CCOHS", "Clean & reuse", "Semi-porous - clean with detergent if structurally sound", "", "How should I clean the mold"], ["Wood (framing / furniture / trim)", "Semi-porous", "Health Canada", "Clean", "Wood listed as washable - unscented soap solution; dry quickly", "", "Washable surfaces"], ["Wood (framing / furniture / trim)", "Semi-porous", "NCCEH", "Surface clean", "Scrape, scrub and HEPA-vacuum; examine structural integrity for replacement", "", "Semi-porous materials with mold growth"], ["Wood (framing / furniture / trim)", "Semi-porous", "NIH SOP", "Dry / clean", "Dehumidifiers, gentle heat, blowers; treated/finished wood wiped w/ mild detergent; pry wet panelling away", "Caution heating hardwood floors", "Appendix 1: Wood surfaces"], ["Wood (framing / furniture / trim)", "Semi-porous", "CCOHS", "Clean & reuse", "Detergent; reuse if structurally sound", "", "How should I clean the mold"], ["Carpet & underlay", "Porous", "EPA", "Discard", "Absorbent/porous - may have to be thrown away", "", "Cleanup Guidelines"], ["Carpet & underlay", "Porous", "Health Canada", "Cut out & discard", "moldy carpet/underpad cut out & discarded; clean & dry surface underneath", "", "Step 3: Clear wet areas"], ["Carpet & underlay", "Porous", "CCOHS", "Discard", "Throw out carpets that can't be properly cleaned", "", "How should I clean the mold"], ["Carpet & underlay", "Porous", "HealthLink BC", "Discard", "Throw out carpets with mildew", "", "How can I clean up mold"], ["Carpet & underlay", "Porous", "NIH SOP", "Dry (clean water <48h)", "Water-extraction vacuum; dehumidify; blowers; steam clean; ensure subfloor dry", "Discard if mold has grown", "Appendix 1: Carpet & backing"], ["Upholstered furniture / soft furnishings", "Porous", "Health Canada", "Discard", "Throw away sofas/cushions that got wet or moldy; surface cleaning may not work", "", "Step 1: Discard moldy materials"], ["Upholstered furniture / soft furnishings", "Porous", "NIH SOP", "Dry / consult pro", "Water-extraction vacuum; dehumidify/blowers; valuable items → restoration pro", "Hard to dry within 48h", "Appendix 1: Upholstered furniture"], ["Upholstered furniture / soft furnishings", "Porous", "CCOHS", "Discard", "Discard furnishings that cannot be properly cleaned", "", "How should I clean the mold"], ["Mattresses, bedding, plush toys", "Porous", "Health Canada", "Discard", "Cannot properly clean a moldy mattress; treat stuffed toys as bedding", "", "Step 1: Discard moldy materials"], ["Mattresses, bedding, plush toys", "Porous", "CCOHS", "Discard", "Throw away mattresses/pillows/bedding that can't be cleaned", "", "How should I clean the mold"], ["Clothing / fabric", "Porous", "Health Canada", "Discard or launder", "Discard if growth on it; nearby clothing washed at hottest safe temp, then air/vented-dry", "", "Step 1: Clothing"], ["Clothing / fabric", "Porous", "NIH SOP", "Launder", "Window drapes: follow manufacturer laundering/cleaning instructions", "", "Appendix 1: Window drapes"], ["Clothing / fabric", "Porous", "CCOHS", "Discard", "Fabric generally thrown out and replaced", "", "How should I clean the mold"], ["Paper, books, cardboard", "Porous", "Health Canada", "Discard", "Throw away moldy paper/books/cardboard; remove cardboard stored on concrete", "", "Step 1: Paper and cardboard"], ["Paper, books, cardboard", "Porous", "NIH SOP", "Discard / salvage", "Discard non-valuable; photocopy valuable then discard; freeze or freeze-dry", "", "Appendix 1: Books & papers"], ["Paper, books, cardboard", "Porous", "CCOHS", "Discard", "Porous - throw out and replace", "", "How should I clean the mold"], ["Ceiling tiles", "Porous", "EPA", "Discard", "Porous - may have to be thrown away", "", "Cleanup Guidelines"], ["Ceiling tiles", "Porous", "CCOHS", "Discard & replace", "Throw out and replace", "", "How should I clean the mold"], ["Ceiling tiles", "Porous", "NIH SOP", "Discard & replace", "Discard and replace", "", "Appendix 1: Ceiling tiles"], ["Ceiling tiles", "Porous", "NCCEH", "Remove & discard", "Cannot be effectively cleaned", "", "Porous materials with mold growth"], ["Insulation (cellulose / fibreglass)", "Porous", "NIH SOP", "Discard & replace", "Discard and replace", "", "Appendix 1: Insulation"], ["Insulation (cellulose / fibreglass)", "Porous", "CCOHS", "Discard", "Porous - throw out", "", "How should I clean the mold"], ["Insulation (cellulose / fibreglass)", "Porous", "Toronto / OHSCO", "Discard", "Porous affected by unsanitary water must be removed & discarded", "", "Appendix B"], ["Bathroom tile, grout, caulk", "Non-porous / porous grout", "EPA", "Clean / ventilate", "Scrub with detergent; increase ventilation & clean more often for recurring shower mold", "", "Bathroom tip"], ["Bathroom tile, grout, caulk", "Non-porous / porous grout", "Health Canada", "Clean / repair", "Wash tiles (soap); repair or replace cracked grout & caulking", "", "Appendix A: Bathroom"], ["Bathroom tile, grout, caulk", "Non-porous / porous grout", "NIH SOP", "Clean", "Porous flooring (tile grout, vinyl): damp-wipe water + mild detergent; scrub if needed", "", "Appendix 1: Hard porous flooring"], ["HVAC / ductwork", "Varies", "EPA", "Do not run; consult pro", "Don't run system if contaminated; consult air-duct guide before action", "Professional if contaminated", "Mold Cleanup"], ["HVAC / ductwork", "Varies", "CCOHS", "Clean small / pro large", "Small: clean as surface + turn HVAC off + dry before restart; large: professionals; biocide products exist for coils/pans per manufacturer", "HVAC off during cleaning", "HVAC contamination"], ["HVAC / ductwork", "Varies", "NCCEH", "Professional", "mold-contaminated HVAC needs professional remediation", "", "Remediate HVAC systems"], ["HVAC / ductwork", "Varies", "Toronto", "Shut down + qualified person", "Shut down HVAC serving area; qualified person; air sampling after Level 2+", "", "Appendix B"], ["Contaminated-water materials (sewage/flood)", "Varies", "Health Canada", "Professional", "Water contaminated with sewage/chemicals → hire a professional; discard porous", "", "Hiring a professional"], ["Contaminated-water materials (sewage/flood)", "Varies", "NCCEH", "Biocide + discard", "Biocides/disinfectants ARE required where contaminated water present", "", "Removal of mold from structure"], ["Contaminated-water materials (sewage/flood)", "Varies", "NIH SOP", "Discard + disinfect", "Dispose contaminated porous in sealed containers; PPE incl. N95; disinfect area", "", "Section E.2.c"]]], "T2": [["Dimension", "EPA", "CDC", "Health Canada", "CCOHS", "Ottawa PH", "HealthLink BC", "OSHA", "NCCEH"], [["Assessment", "", "", "", "", "", "", "", ""], ["Sampling / air testing", "Not routinely needed", "Not needed", "Not recommended", "Not recommended", "Not recommended", "Not addressed", "Not required", "Visual over sampling"], ["Scope & worker protection", "", "", "", "", "", "", "", ""], ["DIY vs professional threshold", "~10 sq ft", "By water-damage extent", "≤1 / 1-3 / >3 m²", "<1 / 1-3 / >3 m²", "Small (per HC)", "<1 m²", "Level I-IV (<10/10-30/30-100/>100 sq ft)", "≤1 / 1-4 / 4-10 / >10 m²"], ["Respiratory protection / PPE", "N95; gloves; goggles", "N95 min; half/full for large; gloves; goggles", "N95 (P100/N100 if needed); gloves; goggles", "N95→P100/HEPA→PAPR by area", "N95; non-vented goggles; gloves", "KN-95+; gloves; goggles", "N95 (29 CFR 1910.134)", "N95 by tier (M/L/F)"], ["Containment", "Larger → professional", "Not detailed", "Larger → contain / pro", "Scales with area", "Per HC", "Not addressed", "Level-based (limited/full)", "By area (minimal → full)"], ["Cleaning methods", "", "", "", "", "", "", "", ""], ["Non-porous / semi-porous surfaces", "Scrub, detergent + water; dry", "Bleach or detergent; ventilate", "Soap solution / baking soda; dry", "Soap or detergent; HEPA", "Soap; sponge; dry", "Detergent + water", "Damp-wipe detergent; HEPA", "Scrub & clean; wood scrape/HEPA"], ["Porous materials (drywall, carpet, ceiling tile)", "Discard", "Discard (implied)", "Discard / cut out", "Discard & replace", "Discard", "Discard", "(occupational)", "Remove & discard"], ["Primary cleaning agent", "Detergent + water", "Bleach (≤1 cup/gal) or dish detergent", "Unscented soap / baking soda", "Soap or detergent", "Unscented soap / baking soda", "Detergent + water", "Detergent solution", "Soap/detergent + water"], ["Biocide / bleach use", "No (pro-judgment)", "Yes — bleach or detergent", "No — “do not use bleach”", "No", "No — “not required”", "No", "No", "No (only contaminated water)"], ["HVAC / ductwork", "Don’t run; consult; pro", "Not detailed", "Larger → pro", "Small clean/off; large pro", "Per HC", "Not addressed", "Shut down; pro", "Professional"], ["Verification & prevention", "", "", "", "", "", "", "", ""], ["Clearance / verification", "Dry; no visible mold (“judgment call”)", "Dry; no visible mold", "Clean, dry, no odour", "Clean, dry", "Clean, dry, no odour", "No visible mold; dry", "Dry; visibly clean", "Visual + moisture; sampling optional"], ["Moisture-source control", "Identify & fix first", "Identify & fix first", "Identify & fix first", "Identify & fix first", "Identify & fix first", "Identify & fix first", "Identify & fix first", "Identify & fix first"]]], "A4": [["Comparison question", "EPA", "CDC", "Health Canada", "CCOHS", "Ottawa PH", "HealthLink BC", "OSHA", "NCCEH"], [["Bleach recommended for routine cleanup?", "No (pro-judgment exception)", "Yes — bleach or detergent", "No — 'do not use bleach'", "No", "No — 'not required'", "No (uses detergent)", "No (detergent)", "No routine; only pro-judgment / contaminated water"], ["Primary cleaning agent", "Detergent + water", "Bleach (≤1 cup/gal) or dish detergent", "Unscented soap / baking soda", "Soap or detergent", "Unscented soap / baking soda", "Detergent + water", "Detergent solution", "Soap/detergent + water"], ["Discard porous materials with growth?", "Yes", "Implied", "Yes", "Yes", "Yes", "Yes", "(occupational)", "Yes"], ["DIY vs professional threshold", "~10 sq ft", "By water-damage extent", "≤1 m² / 1-3 m² / >3 m²", "<1 m² / 1-3 m² / >3 m²", "Small (per HC)", "<1 m²", "Level I-IV: <10/10-30/30-100/>100 sq ft", "≤1 / 1-4 / 4-10 / >10 m²"], ["Respiratory protection", "N95", "N95 min; half/full for big jobs", "N95 (P100/N100 if needed)", "N95; P100/HEPA; PAPR (large)", "N95", "KN-95 or better", "N95 (per 1910.134)", "N95 (by tier)"], ["Fix moisture source emphasized?", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes"], ["Remove mold vs 'kill' with biocide", "Remove (dead still allergenic)", "Clean (bleach optional)", "Physical removal; killing/painting fails", "Removal; biocide not advised", "Removal", "Removal", "Removal", "Physical removal essential"], ["Air/testing for routine cases?", "Usually unnecessary", "Not needed", "Not recommended", "Not recommended", "Not recommended", "Not mentioned", "n/a", "Visual over sampling"], ["Guidance for renters / tenants?", "Yes", "Yes (disaster guide)", "Yes", "No (workplace)", "Yes — detailed (LTB, 3-1-1)", "No", "No (workplace)", "Refers to rental guidance"], ["Vulnerable populations flagged?", "Yes", "Yes", "Yes", "Yes", "Yes", "Yes (asthma)", "Workers", "Yes"], ["Non-English / plain-language versions", "ES + ~11 langs", "ES + ~15 langs", "FR", "FR", "FR + Google/Somali/Arabic/Chinese", "8 languages", "ES", "EN (FR sister)"], ["Professional tied to a standard?", "EPA guide / ACGIH", "No", "IICRC, OSHA; ISO 17025 labs", "Refers to HC/NYC", "Refers to HC", "No", "General Duty Clause / 1910.134", "IICRC S520; AIHA"]]]};
 const SOURCES = [["Public agencies", [["US EPA, Mold Cleanup in Your Home", "https://www.epa.gov/mold/mold-cleanup-your-home", "Updated Jun 4, 2026"], ["US CDC, Mold Clean Up", "https://www.cdc.gov/mold-health/about/clean-up.html", "Updated Feb 6, 2024"], ["Health Canada, Guide to addressing moisture and mould indoors", "https://www.canada.ca/en/health-canada/services/publications/healthy-living/addressing-moisture-mould-your-home.html", "2023"], ["Ottawa Public Health, Mould", "https://www.ottawapublichealth.ca/en/public-health-topics/mould.aspx", "2025"], ["HealthLinkBC File 65b", "https://www.healthlinkbc.ca/healthlinkbc-files/indoor-air-quality-mould-and-other-biological-contaminants", "2024"], ["City of Toronto mould policy", "", "2007; rev. 2017"]]], ["Professional and occupational", [["OSHA, A Brief Guide to Mold in the Workplace", "https://www.osha.gov/publications/shib101003", "2003; rev. 2013"], ["CCOHS mould fact sheet", "", "2021"], ["NCCEH, Mould Remediation Recommendations", "https://ncceh.ca/sites/default/files/Mould_Remediation_Evidence_Review_March_2014.pdf", "2010; rev. 2014"], ["NEHA, Responding to Indoor Mold Concerns Guide", "https://pubs.neha.org/indoor-mold-concerns", "2025"], ["ANSI/IICRC S520-2024 (summary)", "https://blog.ansi.org/ansi/ansi-iicrc-s520-2024-professional-mold-remediation/", "2024"], ["AIHA mold resources", "", "2020"], ["NIH (DOHS) mold SOP", "", "2023"], ["OHSCO / PSHSA mould guideline", "", "c. 2010s"]]], ["Indigenous communities", [["ISC, Mould and your health in First Nations communities", "https://www.sac-isc.gc.ca/eng/1582657493726", "2020; mod. 2025"], ["CSSSPNQL, Breathe easy", "https://cssspnql.com/en/breathe-easy-spotting-and-preventing-mould-at-home/", "2026"], ["APNQL, The mold prevention cycle", "https://apnql.com/en/?p=8395", "Dec 2025"], ["CMHC, Mould in Housing (Indigenous housing)", "https://www.cmhc-schl.gc.ca/en/professionals/industry-innovation-and-leadership/industry-expertise/indigenous-housing/develop-manage-indigenous-housing/maintenance-solutions/mould-in-housing", ""], ["HUD ONAP, Mold and Moisture Prevention", "https://www.hud.gov/sites/documents/moldprevention.pdf", "2004"], ["IHS, Position Paper on Mold", "https://www.ihs.gov/sites/albuquerque/themes/responsive2017/display_objects/documents/oehe/DEHSPositionOnMold.pdf", "c. 2003"], ["Auditor General of Canada, Housing in First Nations Communities", "https://www.canada.ca/en/auditor-general/our-work/audit-reports/parl-oag-202403-02-e.html", "2024"], ["HUD Tribal Healthy Homes", "https://hud.gov/program_offices/healthy_homes/tribal_healthy_homes", ""]]], ["Research", [["Mendell et al. 2011, Environ Health Perspect", "https://doi.org/10.1289/ehp.1002410", "2011"], ["WHO 2009, Dampness and mould guidelines", "https://www.ncbi.nlm.nih.gov/books/NBK143943/", "2009"], ["Sauni et al. 2015, Cochrane review", "https://doi.org/10.1002/14651858.CD007897.pub3", "2015"], ["Howden-Chapman et al. 2007, BMJ", "https://doi.org/10.1136/bmj.39070.573032.80", "2007"], ["Kercsmar et al. 2006, Environ Health Perspect", "https://doi.org/10.1289/ehp.8742", "2006"], ["Burr et al. 2007, Thorax", "https://thorax.bmj.com/content/62/9/767", "2007"], ["Barnes et al. 2007, Ann Allergy Asthma Immunol", "https://doi.org/10.1016/S1081-1206(10)60716-8", "2007"], ["de Buyl & Gastaldi 2004, biocides in silicone sealants", "https://doi.org/10.1520/STP12566S", "2004"], ["Daraz et al. 2018, readability of online health information", "https://doi.org/10.1177/1062860617751639", "2018"], ["LeTourneau-Paci & Heacock 2018, Metro Vancouver mould survey", "https://doi.org/10.47339/ephj.2018.65", "2018"], ["Statistics Canada 2022, Indigenous housing conditions", "https://www12.statcan.gc.ca/census-recensement/2021/as-sa/98-200-X/2021007/98-200-X2021007-eng.cfm", "2022"], ["Pindus et al. 2017, AIAN housing needs", "https://www.huduser.gov/PORTAL/sites/default/files/pdf/HousingNeedsAmerIndians-ExecSumm.pdf", "2017"], ["Ware et al. 2014, rural Alaska Native households", "https://doi.org/10.3402/ijch.v73.24324", "2014"]]]];
-const $ = s => document.querySelector(s);
-const el = (tag, attrs = {}, ...kids) => { const e = document.createElement(tag); for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k === 'text') e.textContent = v; else e.setAttribute(k, v); } for (const c of kids) if (c != null) e.append(c); return e; };
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const el = (tag, attrs = {}, ...kids) => { const e = document.createElement(tag); for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k === 'text') e.textContent = v; else if (k === 'html') e.innerHTML = v; else e.setAttribute(k, v); } for (const c of kids) if (c != null) e.append(c); return e; };
+const NS = 'http://www.w3.org/2000/svg';
+const sv = (parent, tag, a = {}, txt) => { const e = document.createElementNS(NS, tag); for (const k in a) e.setAttribute(k, a[k]); if (txt != null) e.textContent = txt; parent.append(e); return e; };
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-const VIEWS=['materials','compare','evaluation','professional','indigenous','figures','sources'];
-function route(){ const v=VIEWS.includes(location.hash.slice(1))?location.hash.slice(1):'materials';
-  document.querySelectorAll('section[data-view]').forEach(s=>s.hidden=s.dataset.view!==v);
-  document.querySelectorAll('nav a').forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+v?'page':'false'));
-  if(v==='figures') animateBars(); window.scrollTo(0,0); }
-addEventListener('hashchange',route);
+/* ---------- data ---------- */
+const A1 = DATA.A1[1].map(r => ({ mat: r[0].replace(/ \(.*\)$/, '').trim(), full: r[0], por: r[1], src: r[2], act: r[3], how: r[4], ppe: r[5], loc: r[6] }));
+const MATS = [...new Set(A1.map(r => r.mat))];
+const kind = a => { a = a.toLowerCase(); if (/discard|remove|cut out|throw/.test(a)) return 'discard'; if (/professional|pro\b|shut down|conditional|consult/.test(a)) return 'pro'; return 'clean'; };
+let matSel = '', compareSel = 'size';
 
-/* links in tables open in a new tab; tables scroll on their own */
-document.querySelectorAll('.prose a, #srclist a').forEach(a=>{a.target='_blank';a.rel='noopener';});
-document.querySelectorAll('#prof > table').forEach(t=>{ const w=el('div',{class:'tbl'}); t.replaceWith(w); w.append(t); });
+/* ---------- routing ---------- */
+const VIEWS = ['home', 'materials', 'compare', 'professional', 'indigenous', 'sources'];
+function route() {
+  const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'home';
+  $$('section[data-view]').forEach(s => s.hidden = s.dataset.view !== v);
+  $$('nav a').forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + v ? 'page' : 'false'));
+  if (v === 'materials') { renderCards(); renderA1(); }
+  if (v === 'compare') showSub(compareSel);
+  window.scrollTo({ top: 0 });
+}
+addEventListener('hashchange', route);
+document.addEventListener('click', e => { const a = e.target.closest('[data-mat],[data-sub]'); if (!a) return; if (a.dataset.mat) matSel = a.dataset.mat; if (a.dataset.sub) compareSel = a.dataset.sub; });
 
-/* by material */
-const A1=DATA.A1[1].map(r=>({mat:r[0].replace(/ \(.*\)$/,'').trim(),full:r[0],por:r[1],src:r[2],act:r[3],how:r[4],ppe:r[5],loc:r[6]}));
-const MATS=[...new Set(A1.map(r=>r.mat))]; let matSel='';
-function chip(label,val){ const b=el('button',{type:'button',class:'chip','aria-pressed':String(matSel===val),text:label}); b.addEventListener('click',()=>{matSel=val; renderChips(); renderA1();}); return b; }
-function renderChips(){ $('#mat-chips').replaceChildren(chip('All materials',''),...MATS.map(m=>chip(m,m))); }
-const srcSel=$('#g-src'); [...new Set(A1.map(r=>r.src))].sort().forEach(s=>srcSel.append(el('option',{text:s})));
-function renderA1(){ const q=$('#g-q').value.toLowerCase(), s=srcSel.value; const tb=$('#a1 tbody'); tb.replaceChildren(); let last='';
-  const rows=A1.filter(r=>(!matSel||r.mat===matSel)&&(!s||r.src===s)&&(!q||Object.values(r).join(' ').toLowerCase().includes(q)));
-  if(!rows.length){ tb.append(el('tr',{},el('td',{colspan:6,class:'muted',text:'Nothing matches. Clear the search or pick another material.'}))); return; }
-  rows.forEach(r=>{ if(r.mat!==last){ tb.append(el('tr',{class:'group'},el('td',{colspan:6,text:`${r.full} · ${r.por}`}))); last=r.mat; }
-    tb.append(el('tr',{},el('td',{class:'muted',text:r.mat}),el('td',{text:r.src}),el('td',{},el('strong',{text:r.act})),el('td',{text:r.how}),el('td',{text:r.ppe}),el('td',{class:'muted',text:r.loc}))); }); }
-['#g-q','#g-src'].forEach(s=>$(s).addEventListener('input',renderA1));
-renderChips(); renderA1();
-
-/* eight-source comparison */
-(function(){ const [h,rows]=DATA.T2; const t=$('#t2'); t.append(el('thead',{},el('tr',{},...h.map(c=>el('th',{text:c})))));
-  const tb=el('tbody'); rows.forEach(r=>{ const sect=r.slice(1).every(c=>!c); tb.append(sect?el('tr',{class:'group'},el('td',{colspan:h.length,text:r[0]})):el('tr',{},...r.map(c=>el('td',{text:c})))); }); t.append(tb); })();
-
-/* figures */
-const FT=0.0929;
-const THR=[['US EPA',[10*FT]],['Health Canada',[1,3]],['CCOHS',[1,3]],['Ottawa PH (per HC)',[1,3]],['HealthLink BC',[1]],['NCCEH',[1,4,10]],['OSHA',[10*FT,30*FT,100*FT]],['CCA 82',[1,10]],['EACO 2015',[10*FT,100*FT]],['ISC',[1]],['CSSSPNQL',[1]],['HUD ONAP',[10*FT]],['IHS',[10*FT]]];
-(function(){ const svg=$('#fig-thr'); const NS=svg.namespaceURI; const W=760,L=150,R=730,top=34,rowH=24,H=top+THR.length*rowH+30; svg.setAttribute('viewBox',`0 0 ${W} ${H}`); svg.style.minWidth='560px'; svg.style.width='100%'; svg.style.display='block';
-  const lmin=Math.log10(0.5),lmax=Math.log10(15); const X=v=>L+(Math.log10(v)-lmin)/(lmax-lmin)*(R-L);
-  const s=(tag,a,txt)=>{const e=document.createElementNS(NS,tag); for(const k in a) e.setAttribute(k,a[k]); if(txt!=null) e.textContent=txt; svg.append(e); return e;};
-  [0.5,1,2,3,5,10].forEach(v=>{ s('line',{x1:X(v),x2:X(v),y1:top-8,y2:H-24,stroke:'var(--line)'}); s('text',{x:X(v),y:H-8,'text-anchor':'middle','font-size':11,fill:'var(--muted)','font-family':'var(--mono)'},v+' m²'); });
-  THR.forEach(([name,vals],i)=>{ const y=top+i*rowH; s('text',{x:L-10,y:y+4,'text-anchor':'end','font-size':12.5,fill:'var(--ink)'},name);
-    if(vals.length>1) s('line',{x1:X(vals[0]),x2:X(vals.at(-1)),y1:y,y2:y,stroke:'var(--accent)','stroke-opacity':.35,'stroke-width':3});
-    vals.forEach((v,j)=>s('circle',{cx:X(v),cy:y,r:j===0?6:4.5,fill:j===0?'var(--accent)':'var(--surface)',stroke:'var(--accent)','stroke-width':1.5})); });
-  s('text',{x:L,y:14,'font-size':11,fill:'var(--muted)'},'Filled dot = largest area residents are told to clean themselves; open dots = higher tiers');
+/* ---------- house illustration ---------- */
+(function () {
+  const box = $('#house'); const s = document.createElementNS(NS, 'svg'); s.setAttribute('viewBox', '0 0 560 440'); s.setAttribute('role', 'img'); s.setAttribute('aria-label', 'Cross-section of a house with common mold spots'); box.append(s);
+  const L = { stroke: 'var(--house)', 'stroke-width': 2, fill: 'var(--house-fill)' };
+  // ground and basement
+  sv(s, 'rect', { x: 0, y: 330, width: 560, height: 110, fill: 'var(--raised)' });
+  sv(s, 'line', { x1: 0, y1: 330, x2: 560, y2: 330, stroke: 'var(--house)', 'stroke-width': 2 });
+  // roof
+  sv(s, 'path', { d: 'M70 140 L280 30 L490 140 Z', ...L });
+  sv(s, 'path', { d: 'M150 140 L280 72 L410 140', fill: 'none', stroke: 'var(--house)', 'stroke-width': 1.5, 'stroke-dasharray': '4 4' });
+  // walls: two floors + basement
+  sv(s, 'rect', { x: 90, y: 140, width: 380, height: 190, ...L });
+  sv(s, 'rect', { x: 90, y: 330, width: 380, height: 90, ...L });
+  sv(s, 'line', { x1: 90, y1: 235, x2: 470, y2: 235, stroke: 'var(--house)', 'stroke-width': 2 });
+  sv(s, 'line', { x1: 280, y1: 140, x2: 280, y2: 330, stroke: 'var(--house)', 'stroke-width': 2 });
+  // attic insulation
+  for (let i = 0; i < 9; i++) sv(s, 'path', { d: `M${170 + i * 24} 140 q6 -10 12 0 q6 -10 12 0`, fill: 'none', stroke: 'var(--spot)', 'stroke-opacity': .55, 'stroke-width': 2 });
+  // roof leak drops
+  [0, 1, 2].forEach(i => sv(s, 'path', { d: `M${352 + i * 3} ${96 + i * 14} q-4 7 0 9 q4 -2 0 -9z`, fill: 'var(--water)' }));
+  // bathroom (upper left): tub + shower + tiles
+  sv(s, 'rect', { x: 108, y: 200, width: 110, height: 28, rx: 8, fill: 'var(--raised)', stroke: 'var(--house)', 'stroke-width': 2 });
+  sv(s, 'path', { d: 'M200 160 v24 m-8 -24 h16', stroke: 'var(--house)', 'stroke-width': 2, fill: 'none' });
+  for (let i = 0; i < 5; i++) sv(s, 'line', { x1: 100, y1: 158 + i * 9, x2: 230, y2: 158 + i * 9, stroke: 'var(--line)', 'stroke-width': 1 });
+  sv(s, 'line', { x1: 108, y1: 200, x2: 218, y2: 200, stroke: 'var(--spot)', 'stroke-width': 3, 'stroke-dasharray': '2 3' });
+  // bedroom (upper right): window + bed
+  sv(s, 'rect', { x: 380, y: 158, width: 64, height: 46, rx: 3, fill: 'var(--accent-soft)', stroke: 'var(--house)', 'stroke-width': 2 });
+  sv(s, 'line', { x1: 412, y1: 158, x2: 412, y2: 204, stroke: 'var(--house)', 'stroke-width': 2 });
+  sv(s, 'rect', { x: 296, y: 208, width: 74, height: 20, rx: 4, fill: 'var(--raised)', stroke: 'var(--house)', 'stroke-width': 2 });
+  sv(s, 'rect', { x: 298, y: 200, width: 20, height: 10, rx: 3, fill: 'var(--house-fill)', stroke: 'var(--house)', 'stroke-width': 1.5 });
+  // living room (lower left): sofa + carpet
+  sv(s, 'rect', { x: 110, y: 296, width: 90, height: 26, rx: 8, fill: 'var(--raised)', stroke: 'var(--house)', 'stroke-width': 2 });
+  sv(s, 'rect', { x: 104, y: 324, width: 160, height: 6, rx: 3, fill: 'var(--accent-soft)' });
+  // kitchen (lower right): cabinets + vent
+  sv(s, 'rect', { x: 300, y: 290, width: 150, height: 40, fill: 'var(--raised)', stroke: 'var(--house)', 'stroke-width': 2 });
+  sv(s, 'rect', { x: 330, y: 246, width: 60, height: 16, rx: 3, fill: 'none', stroke: 'var(--house)', 'stroke-width': 2 });
+  // basement: furnace + duct + boxes + water
+  sv(s, 'rect', { x: 380, y: 352, width: 46, height: 62, rx: 4, fill: 'var(--raised)', stroke: 'var(--house)', 'stroke-width': 2 });
+  sv(s, 'path', { d: 'M403 352 V300', stroke: 'var(--house)', 'stroke-width': 8, fill: 'none', 'stroke-linecap': 'round' });
+  sv(s, 'rect', { x: 120, y: 384, width: 40, height: 32, fill: 'var(--raised)', stroke: 'var(--house)', 'stroke-width': 2 });
+  sv(s, 'rect', { x: 164, y: 394, width: 30, height: 22, fill: 'var(--raised)', stroke: 'var(--house)', 'stroke-width': 2 });
+  sv(s, 'path', { d: 'M92 416 h376', stroke: 'var(--water)', 'stroke-width': 4, 'stroke-linecap': 'round', opacity: .7 });
+  // room labels
+  [['Bathroom', 104, 152], ['Bedroom', 290, 152], ['Living room', 104, 250], ['Kitchen', 290, 250], ['Basement', 104, 346], ['Attic', 250, 122]].forEach(([t, x, y]) => sv(s, 'text', { x, y, 'font-size': 11, 'font-family': 'var(--mono)', fill: 'var(--muted)' }, t));
+  // hotspots
+  const HOT = [
+    [160, 196, 'Bathroom tile, grout, caulk', 'Grout & caulk'],
+    [412, 196, 'Wall surface', 'Window & paint'],
+    [336, 204, 'Mattresses, bedding, plush toys', 'Bedding'],
+    [356, 116, 'Insulation', 'Attic insulation'],
+    [150, 296, 'Upholstered furniture / soft furnishings', 'Sofa'],
+    [240, 324, 'Carpet & underlay', 'Carpet'],
+    [266, 280, 'Drywall / gypsum wallboard', 'Drywall'],
+    [403, 312, 'HVAC / ductwork', 'Ductwork'],
+    [140, 380, 'Paper, books, cardboard', 'Boxes'],
+    [250, 400, 'Concrete / masonry', 'Basement floor'],
+    [455, 406, 'Contaminated-water materials', 'Flood water']];
+  HOT.forEach(([x, y, mat, label]) => {
+    const a = document.createElementNS(NS, 'a'); a.setAttribute('href', '#materials'); a.setAttribute('class', 'hot'); a.setAttribute('data-mat', mat); a.setAttribute('aria-label', label); s.append(a);
+    const g = document.createElementNS(NS, 'g'); a.append(g);
+    sv(g, 'circle', { cx: x, cy: y, r: 9, class: 'ring' });
+    sv(g, 'circle', { cx: x, cy: y, r: 7, class: 'dot', fill: 'var(--spot)', stroke: 'var(--house-fill)', 'stroke-width': 2 });
+    sv(g, 'title', {}, label);
+  });
 })();
-function classify(a){ a=a.toLowerCase(); if(/discard|remove|cut out|throw/.test(a)) return 'discard'; if(/professional|pro\b|shut down|conditional|consult/.test(a)) return 'pro'; return 'clean'; }
-(function(){ const box=$('#fig-mat'); MATS.forEach(m=>{ const rs=A1.filter(r=>r.mat===m); const c={clean:0,discard:0,pro:0}; rs.forEach(r=>c[classify(r.act)]++); const n=rs.length;
-  const seg=(k,col)=>c[k]?el('div',{class:'bar',style:`width:0;background:${col};height:100%`,'data-w':(c[k]/n*100).toFixed(1)+'%',title:`${c[k]} of ${n}`}):null;
-  box.append(el('div',{style:'display:grid;grid-template-columns:minmax(110px,220px) 1fr auto;gap:10px;align-items:center'},
-    el('span',{style:'font-size:13px',text:m}),
-    el('div',{style:'display:flex;height:14px;border-radius:3px;overflow:hidden;background:var(--line)'},seg('clean','var(--accent)'),seg('discard','var(--bad)'),seg('pro','var(--ochre)')),
-    el('span',{class:'mono',text:`${n} sources`}))); }); })();
-(function(){ const [h,rows]=DATA.A4; const r=rows.find(x=>/bleach/i.test(x[0])); const box=$('#fig-bleach');
-  h.slice(1).forEach((src,i)=>{ const v=r[i+1]; const yes=/^yes/i.test(v), part=/judgment|contaminated/i.test(v);
-    box.append(el('div',{style:'display:grid;grid-template-columns:minmax(110px,160px) auto 1fr;gap:10px;align-items:center'},el('strong',{style:'font-size:13px',text:src}),
-      el('span',{class:'pill '+(yes?'p-yes':part?'p-part':'p-no'),text:yes?'allowed':part?'exceptions only':'no'}),el('span',{class:'muted',style:'font-size:13px',text:v}))); }); })();
-let animated=false; function animateBars(){ if(animated) return; animated=true; requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.bar').forEach(b=>b.style.width=b.dataset.w))); }
-if(matchMedia('(prefers-reduced-motion: reduce)').matches) document.querySelectorAll('.bar').forEach(b=>b.style.width=b.dataset.w);
 
-/* sources */
-(function(){ const box=$('#srclist'); SOURCES.forEach(([g,items])=>{ const ul=el('ul'); items.forEach(([n,u,d])=>ul.append(el('li',{},u?el('a',{href:u,target:'_blank',rel:'noopener',text:n}):el('span',{text:n}),el('span',{class:'mono',text:d}))));
-  box.append(el('div',{class:'panel srcgroup'},el('h3',{style:'margin:0',text:g}),ul)); }); })();
+/* ---------- consensus steps ---------- */
+(function () {
+  const ICON = {
+    water: '<path d="M22 6 C16 16 12 21 12 27 a10 10 0 0 0 20 0 c0-6-4-11-10-21z" fill="var(--water)"/><path d="M8 38 L36 10" stroke="var(--bad)" stroke-width="3" stroke-linecap="round"/>',
+    size: '<rect x="6" y="6" width="32" height="32" rx="3" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="4 3"/><rect x="12" y="16" width="14" height="14" rx="2" fill="var(--spot)"/>',
+    mask: '<path d="M8 18 q14 -10 28 0 v8 q-14 14 -28 0z" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/><path d="M8 20 L3 16 M36 20 L41 16" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"/><circle cx="22" cy="24" r="3" fill="var(--accent)"/>',
+    scrub: '<rect x="8" y="22" width="28" height="12" rx="4" fill="var(--accent)"/><path d="M11 22 v-6 M16 22 v-7 M21 22 v-6 M26 22 v-7 M31 22 v-6" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"/><circle cx="34" cy="10" r="3" fill="var(--water)"/><circle cx="27" cy="8" r="2" fill="var(--water)"/>',
+    bin: '<path d="M10 14 h24 l-3 24 h-18z" fill="var(--bad-soft)" stroke="var(--bad)" stroke-width="2.5" stroke-linejoin="round"/><path d="M7 14 h30 M17 9 h10" stroke="var(--bad)" stroke-width="2.5" stroke-linecap="round"/>',
+    check: '<circle cx="22" cy="22" r="16" fill="var(--good-soft)" stroke="var(--good)" stroke-width="2.5"/><path d="M14 22 l6 6 l11 -12" fill="none" stroke="var(--good)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'
+  };
+  const STEPS = [
+    ['water', 'Fix the moisture', 'Find and stop the leak, condensation or humidity. Without this, mold comes back.'],
+    ['size', 'Check the size', 'Small areas you can clean yourself. Larger or recurring growth needs a professional.'],
+    ['mask', 'Protect yourself', 'N95 respirator, gloves and goggles. People with asthma or weak immune systems stay away.'],
+    ['scrub', 'Clean or discard', 'Scrub hard surfaces with soap or detergent. Throw out porous items with growth.'],
+    ['check', 'Dry and check', 'Dry everything fully. No visible mold, no musty smell.']];
+  const box = $('#steps');
+  STEPS.forEach(([ic, t, d], i) => box.append(el('div', { class: 'step' }, el('span', { class: 'n', text: String(i + 1).padStart(2, '0') }), el('div', { html: `<svg viewBox="0 0 44 44" aria-hidden="true">${ICON[ic]}</svg>` }), el('h3', { text: t }), el('p', { class: 'muted', style: 'font-size:14px', text: d }))));
+  window.ICON = ICON;
+})();
+
+/* ---------- materials ---------- */
+function renderCards() {
+  const g = $('#mgrid'); g.replaceChildren();
+  MATS.forEach(m => {
+    const rs = A1.filter(r => r.mat === m); const c = { clean: 0, discard: 0, pro: 0 }; rs.forEach(r => c[kind(r.act)]++); const n = rs.length;
+    const seg = (k, col) => c[k] ? el('span', { style: `width:${reduce ? c[k] / n * 100 : 0}%;background:${col}`, 'data-w': (c[k] / n * 100) + '%', title: `${c[k]} of ${n}` }) : null;
+    const top = Object.entries(c).sort((a, b) => b[1] - a[1])[0][0];
+    const b = el('button', { type: 'button', class: 'mcard', 'aria-pressed': String(matSel === m) },
+      el('strong', { text: m }),
+      el('div', { class: 'stack' }, seg('clean', 'var(--good)'), seg('discard', 'var(--bad)'), seg('pro', 'var(--spot)')),
+      el('div', { class: 'mmeta' }, el('span', { text: rs[0].por }), el('span', { text: `${n} guides · mostly ${top === 'clean' ? 'clean' : top === 'discard' ? 'discard' : 'professional'}` })));
+    b.addEventListener('click', () => { matSel = matSel === m ? '' : m; renderCards(); renderA1(); $('#a1').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); });
+    g.append(b);
+  });
+  if (!reduce) requestAnimationFrame(() => requestAnimationFrame(() => $$('.stack span').forEach(s => s.style.width = s.dataset.w)));
+}
+const srcSel = $('#g-src'); [...new Set(A1.map(r => r.src))].sort().forEach(s => srcSel.append(el('option', { text: s })));
+function renderA1() {
+  const q = $('#g-q').value.toLowerCase(), s = srcSel.value; const tb = $('#a1 tbody'); tb.replaceChildren(); let last = '';
+  const rows = A1.filter(r => (!matSel || r.mat === matSel) && (!s || r.src === s) && (!q || Object.values(r).join(' ').toLowerCase().includes(q)));
+  if (!rows.length) { tb.append(el('tr', {}, el('td', { colspan: 6, class: 'muted', text: 'Nothing matches. Clear the filters to see every material.' }))); return; }
+  rows.forEach(r => {
+    if (r.mat !== last) { tb.append(el('tr', { class: 'group' }, el('td', { colspan: 6, text: `${r.full} · ${r.por}` }))); last = r.mat; }
+    const k = kind(r.act);
+    tb.append(el('tr', {}, el('td', { class: 'muted', text: r.mat }), el('td', { text: r.src }), el('td', {}, el('span', { class: 'act a-' + k, text: r.act })), el('td', { text: r.how }), el('td', { text: r.ppe }), el('td', { class: 'muted', text: r.loc })));
+  });
+}
+['#g-q', '#g-src'].forEach(s => $(s).addEventListener('input', renderA1));
+$('#g-clear').addEventListener('click', () => { matSel = ''; $('#g-q').value = ''; srcSel.value = ''; renderCards(); renderA1(); });
+
+/* ---------- compare ---------- */
+function showSub(p) { compareSel = p; $$('#seg button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.p === p))); $$('section[data-view="compare"] > [data-p]').forEach(d => d.hidden = d.dataset.p !== p); }
+$$('#seg button').forEach(b => b.addEventListener('click', () => showSub(b.dataset.p)));
+(function () { const [h, rows] = DATA.T2; const t = $('#t2'); t.append(el('thead', {}, el('tr', {}, ...h.map(c => el('th', { text: c })))));
+  const tb = el('tbody'); rows.forEach(r => { const sect = r.slice(1).every(c => !c); tb.append(sect ? el('tr', { class: 'group' }, el('td', { colspan: h.length, text: r[0] })) : el('tr', {}, el('td', { class: 'k', text: r[0] }), ...r.slice(1).map(c => el('td', { text: c })))); }); t.append(tb); })();
+
+const FT = 0.0929;
+(function squares() {
+  const s = $('#fig-squares'); const SC = 46; // px per metre
+  const items = [[10 * FT, '10 ft²', 'US EPA · OSHA level I · HUD · IHS · EACO'], [1, '1 m²', 'Health Canada · CCOHS · HealthLink BC · NCCEH · ISC · CSSSPNQL · CCA 82'], [3, '3 m²', 'Health Canada: large · CCOHS: large'], [4, '4 m²', 'NCCEH: large'], [10, '10 m²', 'NCCEH: extensive · CCA 82: level 3']];
+  const gap = 56, base = 230; let x = 20;
+  const door = { w: 0.9 * SC, h: 2.0 * SC };
+  const totalW = 20 + door.w + gap + items.reduce((a, [v]) => a + Math.sqrt(v) * SC + gap, 0) + 10;
+  s.setAttribute('viewBox', `0 0 ${Math.ceil(totalW)} 340`); s.style.minWidth = '760px'; s.style.maxWidth = Math.ceil(totalW * 1.15) + 'px';
+  sv(s, 'line', { x1: 0, y1: base, x2: totalW, y2: base, stroke: 'var(--line)', 'stroke-width': 2 });
+  sv(s, 'rect', { x, y: base - door.h, width: door.w, height: door.h, rx: 3, fill: 'var(--raised)', stroke: 'var(--muted)', 'stroke-width': 1.5, 'stroke-dasharray': '5 4' });
+  sv(s, 'circle', { cx: x + door.w - 8, cy: base - door.h / 2, r: 3, fill: 'var(--muted)' });
+  sv(s, 'text', { x: x + door.w / 2, y: base + 20, 'text-anchor': 'middle', 'font-size': 12, fill: 'var(--muted)', 'font-family': 'var(--mono)' }, 'Door');
+  sv(s, 'text', { x: x + door.w / 2, y: base + 36, 'text-anchor': 'middle', 'font-size': 11, fill: 'var(--muted)' }, '0.9 × 2 m');
+  x += door.w + gap;
+  items.forEach(([v, lab, who], i) => {
+    const side = Math.sqrt(v) * SC;
+    const r = sv(s, 'rect', { x, y: base - side, width: side, height: side, rx: 4, fill: i < 2 ? 'var(--spot)' : 'var(--accent)', 'fill-opacity': i < 2 ? .85 : .18, stroke: i < 2 ? 'var(--spot)' : 'var(--accent)', 'stroke-width': 2 });
+    sv(s, 'text', { x: x + side / 2, y: base + 20, 'text-anchor': 'middle', 'font-size': 13, 'font-weight': 700, fill: 'var(--ink)', 'font-family': 'var(--display)' }, lab);
+    const words = who.split(' · '); words.forEach((w, j) => sv(s, 'text', { x: x + side / 2, y: base + 38 + j * 14, 'text-anchor': 'middle', 'font-size': 10.5, fill: 'var(--muted)' }, w));
+    x += side + gap;
+  });
+  sv(s, 'text', { x: 20, y: 18, 'font-size': 12, fill: 'var(--muted)' }, 'Yellow: largest area a resident is told to clean alone. Blue: higher tiers.');
+})();
+(function () {
+  const THR = [['US EPA', [10 * FT]], ['Health Canada', [1, 3]], ['CCOHS', [1, 3]], ['Ottawa PH (per HC)', [1, 3]], ['HealthLink BC', [1]], ['NCCEH', [1, 4, 10]], ['OSHA', [10 * FT, 30 * FT, 100 * FT]], ['CCA 82', [1, 10]], ['EACO 2015', [10 * FT, 100 * FT]], ['ISC', [1]], ['CSSSPNQL', [1]], ['HUD ONAP', [10 * FT]], ['IHS', [10 * FT]]];
+  const s = $('#fig-thr'); const W = 760, L = 150, R = 730, top = 20, rowH = 26, H = top + THR.length * rowH + 30; s.setAttribute('viewBox', `0 0 ${W} ${H}`); s.style.minWidth = '560px';
+  const lmin = Math.log10(0.5), lmax = Math.log10(15); const X = v => L + (Math.log10(v) - lmin) / (lmax - lmin) * (R - L);
+  [0.5, 1, 2, 3, 5, 10].forEach(v => { sv(s, 'line', { x1: X(v), x2: X(v), y1: top - 8, y2: H - 24, stroke: 'var(--line)' }); sv(s, 'text', { x: X(v), y: H - 8, 'text-anchor': 'middle', 'font-size': 11, fill: 'var(--muted)', 'font-family': 'var(--mono)' }, v + ' m²'); });
+  THR.forEach(([n, vals], i) => { const y = top + i * rowH; sv(s, 'text', { x: L - 12, y: y + 4, 'text-anchor': 'end', 'font-size': 13, fill: 'var(--ink)' }, n);
+    if (vals.length > 1) sv(s, 'line', { x1: X(vals[0]), x2: X(vals.at(-1)), y1: y, y2: y, stroke: 'var(--accent)', 'stroke-opacity': .3, 'stroke-width': 4, 'stroke-linecap': 'round' });
+    vals.forEach((v, j) => sv(s, 'circle', { cx: X(v), cy: y, r: j === 0 ? 7 : 5, fill: j === 0 ? 'var(--spot)' : 'var(--surface)', stroke: j === 0 ? 'var(--spot)' : 'var(--accent)', 'stroke-width': 2 })); });
+})();
+(function () { const [h, rows] = DATA.A4; const r = rows.find(x => /bleach/i.test(x[0])); const box = $('#fig-bleach');
+  h.slice(1).forEach((src, i) => { const v = r[i + 1]; const yes = /^yes/i.test(v), part = /judgment|contaminated/i.test(v);
+    box.append(el('div', { class: 'brow' }, el('strong', { text: src }), el('span', { class: 'act ' + (yes ? 'a-discard' : part ? 'a-pro' : 'a-clean'), text: yes ? 'Allowed' : part ? 'Exceptions only' : 'No' }), el('span', { class: 'muted why', text: v }))); }); })();
+
+/* ---------- professional pipeline ---------- */
+(function () {
+  const P = [['size', 'Assessment', 'Moisture meters, thermal cameras, inspection.'], ['mask', 'Containment', 'Plastic sheeting, zip walls, sealed vents.'], ['water', 'Negative air', 'HEPA air scrubbers pull air out of the zone.'], ['mask', 'Worker protection', 'N95 to full-face respirators, coveralls.'], ['bin', 'Removal', 'Porous materials with growth cut out and bagged.'], ['scrub', 'Cleaning what stays', 'HEPA vacuum, detergent wipe, blasting on framing.'], ['water', 'Drying', 'Dehumidifiers and air movers.'], ['check', 'Verification', 'No visible mold, dust or odour; materials dry.']];
+  const box = $('#pipe'); P.forEach(([ic, t, d], i) => box.append(el('div', { class: 'pstage' }, el('span', { class: 'n eyebrow', style: 'color:var(--muted)', text: String(i + 1).padStart(2, '0') }), el('div', { html: `<svg viewBox="0 0 44 44" aria-hidden="true">${window.ICON[ic]}</svg>` }), el('h3', { text: t }), el('p', { text: d }))));
+})();
+$$('#prof > table').forEach(t => { const w = el('div', { class: 'tbl' }); t.replaceWith(w); w.append(t); });
+$$('.tbl a, .prose a').forEach(a => { a.target = '_blank'; a.rel = 'noopener'; });
+
+/* ---------- sources ---------- */
+(function () { const box = $('#srclist'); SOURCES.forEach(([g, items]) => { const ul = el('ul', { class: 'slist' }); items.forEach(([n, u, d]) => ul.append(el('li', {}, u ? el('a', { href: u, target: '_blank', rel: 'noopener', text: n }) : el('span', { text: n }), el('span', { class: 'date', text: d }))));
+  box.append(el('div', { class: 'card', style: 'display:grid;gap:8px' }, el('h3', { text: g }), ul)); }); })();
 
 route();
 </script>
