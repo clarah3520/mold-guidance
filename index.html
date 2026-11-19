@@ -1056,7 +1056,7 @@ function route() {
   window.scrollTo({ top: 0 });
 }
 addEventListener('hashchange', route);
-document.addEventListener('click', e => { const a = e.target.closest('[data-mat],[data-sub]'); if (!a) return; if (a.dataset.mat) matSel = a.dataset.mat; if (a.dataset.sub) compareSel = a.dataset.sub; });
+document.addEventListener('click', e => { if (e.target.closest('nav a[href="#materials"]')) { matSel = ''; if (location.hash === '#materials') { renderCards(); renderA1(); } return; } const a = e.target.closest('[data-mat],[data-sub]'); if (!a) return; if (a.dataset.mat) matSel = a.dataset.mat; if (a.dataset.sub) compareSel = a.dataset.sub; });
 
 /* ---------- house illustration ---------- */
 (function () {
@@ -1147,7 +1147,7 @@ document.addEventListener('click', e => { const a = e.target.closest('[data-mat]
 /* ---------- materials ---------- */
 function renderCards() {
   const g = $('#mgrid'); g.replaceChildren();
-  MATS.forEach(m => {
+  (matSel ? [matSel] : MATS).forEach(m => {
     const rs = A1.filter(r => r.mat === m); const c = { clean: 0, discard: 0, pro: 0 }; rs.forEach(r => c[kind(r.act)]++); const n = rs.length;
     const seg = (k, col) => c[k] ? el('span', { style: `width:${reduce ? c[k] / n * 100 : 0}%;background:${col}`, 'data-w': (c[k] / n * 100) + '%', title: `${c[k]} of ${n}` }) : null;
     const top = Object.entries(c).sort((a, b) => b[1] - a[1])[0][0];
@@ -1158,6 +1158,7 @@ function renderCards() {
     b.addEventListener('click', () => { matSel = matSel === m ? '' : m; renderCards(); renderA1(); $('#a1').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); });
     g.append(b);
   });
+  if (matSel) { const all = el('button', { type: 'button', class: 'clear', style: 'justify-self:start;align-self:center', text: '← Show all materials' }); all.addEventListener('click', () => { matSel = ''; renderCards(); renderA1(); }); g.append(all); }
   if (!reduce) requestAnimationFrame(() => requestAnimationFrame(() => $$('.stack span').forEach(s => s.style.width = s.dataset.w)));
 }
 const srcSel = $('#g-src'); [...new Set(A1.map(r => r.src))].sort().forEach(s => srcSel.append(el('option', { text: s })));
