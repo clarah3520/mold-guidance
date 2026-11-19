@@ -1043,7 +1043,7 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const A1 = DATA.A1[1].map(r => ({ mat: r[0].replace(/ \(.*\)$/, '').trim(), full: r[0], por: r[1], src: r[2], act: r[3], how: r[4], ppe: r[5], loc: r[6] }));
 const MATS = [...new Set(A1.map(r => r.mat))];
 const kind = a => { a = a.toLowerCase(); if (/discard|remove|cut out|throw/.test(a)) return 'discard'; if (/professional|pro\b|shut down|conditional|consult/.test(a)) return 'pro'; return 'clean'; };
-let matSel = '', compareSel = 'size';
+let matSel = [], spotSel = '', compareSel = 'size';
 
 /* ---------- routing ---------- */
 const VIEWS = ['home', 'materials', 'compare', 'professional', 'indigenous', 'sources'];
@@ -1056,7 +1056,7 @@ function route() {
   window.scrollTo({ top: 0 });
 }
 addEventListener('hashchange', route);
-document.addEventListener('click', e => { if (e.target.closest('nav a[href="#materials"]')) { matSel = ''; if (location.hash === '#materials') { renderCards(); renderA1(); } return; } const a = e.target.closest('[data-mat],[data-sub]'); if (!a) return; if (a.dataset.mat) matSel = a.dataset.mat; if (a.dataset.sub) compareSel = a.dataset.sub; });
+document.addEventListener('click', e => { if (e.target.closest('nav a[href="#materials"]')) { matSel = []; spotSel = ''; if (location.hash === '#materials') { renderCards(); renderA1(); } return; } const a = e.target.closest('[data-mat],[data-sub]'); if (!a) return; if (a.dataset.mat) { matSel = a.dataset.mat.split('|'); spotSel = a.dataset.spot || ''; } if (a.dataset.sub) compareSel = a.dataset.sub; });
 
 /* ---------- house illustration ---------- */
 (function () {
@@ -1102,20 +1102,16 @@ document.addEventListener('click', e => { if (e.target.closest('nav a[href="#mat
   // room labels
   [['Bathroom', 104, 152], ['Bedroom', 290, 152], ['Living room', 104, 250], ['Kitchen', 290, 250], ['Basement', 104, 346], ['Attic', 250, 122]].forEach(([t, x, y]) => sv(s, 'text', { x, y, 'font-size': 11, 'font-family': 'var(--mono)', fill: 'var(--muted)' }, t));
   // hotspots
+  // one dot per room; each lists every material found in that room (first = main item)
   const HOT = [
-    [160, 196, 'Bathroom tile, grout, caulk', 'Grout & caulk'],
-    [412, 196, 'Wall surface', 'Window & paint'],
-    [336, 204, 'Mattresses, bedding, plush toys', 'Bedding'],
-    [356, 116, 'Insulation', 'Attic insulation'],
-    [150, 296, 'Upholstered furniture / soft furnishings', 'Sofa'],
-    [240, 324, 'Carpet & underlay', 'Carpet'],
-    [266, 280, 'Drywall / gypsum wallboard', 'Drywall'],
-    [403, 312, 'HVAC / ductwork', 'Ductwork'],
-    [140, 380, 'Paper, books, cardboard', 'Boxes'],
-    [250, 400, 'Concrete / masonry', 'Basement floor'],
-    [455, 406, 'Contaminated-water materials', 'Flood water']];
-  HOT.forEach(([x, y, mat, label]) => {
-    const a = document.createElementNS(NS, 'a'); a.setAttribute('href', '#materials'); a.setAttribute('class', 'hot'); a.setAttribute('data-mat', mat); a.setAttribute('aria-label', label); s.append(a);
+    [356, 116, 'Attic', ['Insulation', 'Wood', 'Drywall / gypsum wallboard']],
+    [160, 196, 'Bathroom', ['Bathroom tile, grout, caulk', 'Hard non-porous', 'Wall surface', 'Drywall / gypsum wallboard']],
+    [336, 204, 'Bedroom', ['Mattresses, bedding, plush toys', 'Clothing / fabric', 'Wall surface', 'Carpet & underlay']],
+    [150, 296, 'Living room', ['Upholstered furniture / soft furnishings', 'Carpet & underlay', 'Wood', 'Wall surface', 'Drywall / gypsum wallboard']],
+    [375, 300, 'Kitchen', ['Hard non-porous', 'Wood', 'Wall surface', 'Drywall / gypsum wallboard']],
+    [250, 400, 'Basement', ['Concrete / masonry', 'Contaminated-water materials', 'Paper, books, cardboard', 'HVAC / ductwork', 'Ceiling tiles', 'Insulation']]];
+  HOT.forEach(([x, y, label, mats]) => {
+    const a = document.createElementNS(NS, 'a'); a.setAttribute('href', '#materials'); a.setAttribute('class', 'hot'); a.setAttribute('data-mat', mats.join('|')); a.setAttribute('data-spot', label); a.setAttribute('aria-label', `${label}: ${mats.length} materials`); s.append(a);
     const g = document.createElementNS(NS, 'g'); a.append(g);
     sv(g, 'circle', { cx: x, cy: y, r: 9, class: 'ring' });
     sv(g, 'circle', { cx: x, cy: y, r: 7, class: 'dot', fill: 'var(--spot)', stroke: 'var(--house-fill)', 'stroke-width': 2 });
@@ -1147,33 +1143,41 @@ document.addEventListener('click', e => { if (e.target.closest('nav a[href="#mat
 /* ---------- materials ---------- */
 function renderCards() {
   const g = $('#mgrid'); g.replaceChildren();
-  (matSel ? [matSel] : MATS).forEach(m => {
+  (matSel.length ? matSel.filter(m => MATS.includes(m)) : MATS).forEach(m => {
     const rs = A1.filter(r => r.mat === m); const c = { clean: 0, discard: 0, pro: 0 }; rs.forEach(r => c[kind(r.act)]++); const n = rs.length;
     const seg = (k, col) => c[k] ? el('span', { style: `width:${reduce ? c[k] / n * 100 : 0}%;background:${col}`, 'data-w': (c[k] / n * 100) + '%', title: `${c[k]} of ${n}` }) : null;
     const top = Object.entries(c).sort((a, b) => b[1] - a[1])[0][0];
-    const b = el('button', { type: 'button', class: 'mcard', 'aria-pressed': String(matSel === m) },
+    const b = el('button', { type: 'button', class: 'mcard', 'aria-pressed': String(matSel.includes(m)) },
       el('strong', { text: m }),
       el('div', { class: 'stack' }, seg('clean', 'var(--good)'), seg('discard', 'var(--bad)'), seg('pro', 'var(--spot)')),
       el('div', { class: 'mmeta' }, el('span', { text: rs[0].por }), el('span', { text: `${n} guides · mostly ${top === 'clean' ? 'clean' : top === 'discard' ? 'discard' : 'professional'}` })));
-    b.addEventListener('click', () => { matSel = matSel === m ? '' : m; renderCards(); renderA1(); $('#a1').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); });
+    b.addEventListener('click', () => {
+      const go = () => { const row = $$('#a1 tr.group').find(t => t.dataset.g === m) || $('#a1'); row.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); };
+      if (matSel.length > 1) return go(); // room view: jump to this material's rows
+      matSel = matSel[0] === m ? [] : [m]; spotSel = ''; renderCards(); renderA1(); go();
+    });
     g.append(b);
   });
-  if (matSel) { const all = el('button', { type: 'button', class: 'clear', style: 'justify-self:start;align-self:center', text: '← Show all materials' }); all.addEventListener('click', () => { matSel = ''; renderCards(); renderA1(); }); g.append(all); }
+  if (matSel.length) {
+    const all = el('button', { type: 'button', class: 'clear', text: '← Show all materials' }); all.addEventListener('click', () => { matSel = []; spotSel = ''; renderCards(); renderA1(); });
+    g.prepend(el('div', { style: 'grid-column:1/-1;display:flex;align-items:center;gap:12px;flex-wrap:wrap' }, spotSel ? el('h3', { text: `${spotSel}: ${matSel.length} materials` }) : null, all));
+  }
   if (!reduce) requestAnimationFrame(() => requestAnimationFrame(() => $$('.stack span').forEach(s => s.style.width = s.dataset.w)));
 }
 const srcSel = $('#g-src'); [...new Set(A1.map(r => r.src))].sort().forEach(s => srcSel.append(el('option', { text: s })));
 function renderA1() {
   const q = $('#g-q').value.toLowerCase(), s = srcSel.value; const tb = $('#a1 tbody'); tb.replaceChildren(); let last = '';
-  const rows = A1.filter(r => (!matSel || r.mat === matSel) && (!s || r.src === s) && (!q || Object.values(r).join(' ').toLowerCase().includes(q)));
+  const rows = A1.filter(r => (!matSel.length || matSel.includes(r.mat)) && (!s || r.src === s) && (!q || Object.values(r).join(' ').toLowerCase().includes(q)));
+  if (matSel.length) rows.sort((a, b) => matSel.indexOf(a.mat) - matSel.indexOf(b.mat));
   if (!rows.length) { tb.append(el('tr', {}, el('td', { colspan: 6, class: 'muted', text: 'Nothing matches. Clear the filters to see every material.' }))); return; }
   rows.forEach(r => {
-    if (r.mat !== last) { tb.append(el('tr', { class: 'group' }, el('td', { colspan: 6, text: `${r.full} · ${r.por}` }))); last = r.mat; }
+    if (r.mat !== last) { tb.append(el('tr', { class: 'group', 'data-g': r.mat }, el('td', { colspan: 6, text: `${r.full} · ${r.por}` }))); last = r.mat; }
     const k = kind(r.act);
     tb.append(el('tr', {}, el('td', { class: 'muted', text: r.mat }), el('td', { text: r.src }), el('td', {}, el('span', { class: 'act a-' + k, text: r.act })), el('td', { text: r.how }), el('td', { text: r.ppe }), el('td', { class: 'muted', text: r.loc })));
   });
 }
 ['#g-q', '#g-src'].forEach(s => $(s).addEventListener('input', renderA1));
-$('#g-clear').addEventListener('click', () => { matSel = ''; $('#g-q').value = ''; srcSel.value = ''; renderCards(); renderA1(); });
+$('#g-clear').addEventListener('click', () => { matSel = []; spotSel = ''; $('#g-q').value = ''; srcSel.value = ''; renderCards(); renderA1(); });
 
 /* ---------- compare ---------- */
 function showSub(p) { compareSel = p; $$('#seg button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.p === p))); $$('section[data-view="compare"] > [data-p]').forEach(d => d.hidden = d.dataset.p !== p); }
